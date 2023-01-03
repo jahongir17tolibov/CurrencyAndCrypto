@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home_3_svgrepo_com"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/currency"
+        android:icon="@drawable/currency_revenue_svgrepo_com"
+        android:title="Currency" />
+
+    <item
+        android:id="@+id/crypto"
+        android:icon="@drawable/currency_bitcoin_svgrepo_com_1"
+        android:title="Crypto" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings_cog_line_svgrepo_com"
+        android:title="Settings" />
+
+</menu>

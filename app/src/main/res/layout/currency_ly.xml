@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="35dp"
+    android:layout_marginBottom="8dp"
+    app:strokeColor="@color/glass"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="14dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="40dp"
+            app:strokeColor="@color/glass"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/flag_avatars"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/country_3str"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kufam_medium"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="USD" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" 1 "
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+
+                <TextView
+                    android:id="@+id/curr_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/kufam"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    tools:text="US dollar" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pricer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1112.264"
+                android:textStyle="bold"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/kufam_medium"
+                android:textColor="@color/black"
+                android:textSize="28sp"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/add_to_fav"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/favourite_star_svgrepo_com"/>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
