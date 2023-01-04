@@ -8,5 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="glass">#4FFFFFFF</color>
+    <color name="green_super_light">#FF0ADE00</color>
+    <color name="red_super_light">#FF0101</color>
+    <color name="neutral_gray">#888888</color>
 
 </resources>

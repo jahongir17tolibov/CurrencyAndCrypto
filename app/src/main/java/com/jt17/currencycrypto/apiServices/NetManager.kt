@@ -18,15 +18,15 @@ object NetManager {
         return api!!
     }
 
-    fun getFlagsApiService(): Api {
+    fun getCryptoApiServices(): Api {
         if (api == null) {
             retrofit = Retrofit.Builder()
-                .baseUrl("https://flagcdn.com/")
+                .baseUrl("https://api.coinlore.net/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             api = retrofit!!.create(Api::class.java)
         }
-        return api!!
+        return  api!!
     }
 
 }

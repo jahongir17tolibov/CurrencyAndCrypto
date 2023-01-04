@@ -13,6 +13,8 @@ import com.jt17.currencycrypto.fragments.SettingsFragment
 //      https://api.coinlore.net/api/tickers/
 //      https://cbu.uz/uz/arkhiv-kursov-valyut/json/
 //      https://flagcdn.com/w160/uz.png
+//      https://coinicons-api.vercel.app/api/icon/btc
+//      https://coinicons-api.vercel.app/api/icon/yfi
 
 class MainActivity : AppCompatActivity() {
 
