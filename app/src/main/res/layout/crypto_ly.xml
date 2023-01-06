@@ -36,8 +36,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="12dp">
@@ -77,9 +78,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/kufam_medium"
                     android:textAllCaps="true"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:elegantTextHeight="true"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text="  Bitcoin" />
+                    tools:text=" Bitcoin"
+                    android:ellipsize="end"/>
 
 
             </LinearLayout>
@@ -116,8 +121,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView

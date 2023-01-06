@@ -1,5 +1,7 @@
 package com.jt17.currencycrypto.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.jt17.currencycrypto.apiServices.NetManager
 import com.jt17.currencycrypto.models.CryptoIncomingModel
@@ -11,10 +13,9 @@ import retrofit2.Response
 
 class AppRepository {
 
-    fun getData(
+    fun getCurrencyData(
         progress: MutableLiveData<Boolean>,
         currencyList: MutableLiveData<List<CurrencyModel>>,
-        cryptoList: MutableLiveData<List<CryptoModel>>,
         error: MutableLiveData<String>
     ) {
 
@@ -25,10 +26,15 @@ class AppRepository {
                     call: Call<List<CurrencyModel>>,
                     response: Response<List<CurrencyModel>>
                 ) {
-                    if (response.isSuccessful) {
-                        currencyList.value = response.body()
-                        progress.value = false
+                    try {
+                        Log.d("taggger", "${response.body()}")
+                        if (response.isSuccessful) {
+                            currencyList.value = response.body()
+                            progress.value = false
+                        }
+                    } catch (_: Exception) {
                     }
+
                 }
 
                 override fun onFailure(call: Call<List<CurrencyModel>>, t: Throwable) {
@@ -38,6 +44,15 @@ class AppRepository {
 
             })
 
+
+    }
+
+    fun getCryptoData(
+        progress: MutableLiveData<Boolean>,
+        cryptoList: MutableLiveData<List<CryptoModel>>,
+        error: MutableLiveData<String>
+    ) {
+
         /** Crypto api repository **/
         NetManager.getCryptoApiServices().getCryptoApi()
             .enqueue(object : Callback<CryptoIncomingModel<List<CryptoModel>>> {
@@ -45,9 +60,13 @@ class AppRepository {
                     call: Call<CryptoIncomingModel<List<CryptoModel>>>,
                     response: Response<CryptoIncomingModel<List<CryptoModel>>>
                 ) {
-                    if (response.isSuccessful) {
-                        cryptoList.value = response.body()!!.data
-                        progress.value = false
+                    try {
+                        if (response.isSuccessful) {
+                            Log.d("jhdsgfsdf", "${response.body()!!.data}")
+                            cryptoList.value = response.body()!!.data
+                            progress.value = false
+                        }
+                    } catch (_: Exception) {
                     }
                 }
 
@@ -60,6 +79,7 @@ class AppRepository {
                 }
 
             })
+
     }
 
 }

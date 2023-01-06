@@ -9,10 +9,8 @@ object NetManager {
 
     fun getCurrencyApiService(): Api {
         if (api == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl("https://cbu.uz/uz/arkhiv-kursov-valyut/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            retrofit = Retrofit.Builder().baseUrl("https://cbu.uz/uz/arkhiv-kursov-valyut/")
+                .addConverterFactory(GsonConverterFactory.create()).build()
             api = retrofit!!.create(Api::class.java)
         }
         return api!!
@@ -20,13 +18,11 @@ object NetManager {
 
     fun getCryptoApiServices(): Api {
         if (api == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl("https://api.coinlore.net/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            retrofit = Retrofit.Builder().baseUrl("https://api.coinlore.net/api/")
+                .addConverterFactory(GsonConverterFactory.create()).build()
             api = retrofit!!.create(Api::class.java)
         }
-        return  api!!
+        return api!!
     }
 
 }

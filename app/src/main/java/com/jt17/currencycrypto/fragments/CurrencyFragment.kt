@@ -13,6 +13,8 @@ import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.adapters.CurrencyAdapter
 import com.jt17.currencycrypto.databinding.FragmentCurrencyBinding
 import com.jt17.currencycrypto.viewmodel.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CurrencyFragment : Fragment() {
     private var _binding: FragmentCurrencyBinding? = null
@@ -50,19 +52,17 @@ class CurrencyFragment : Fragment() {
     }
 
     private fun initLiveData() {
-        viewModel.run {
-            currencyList.observe(viewLifecycleOwner, Observer {
-                currentAdapter.newList(it)
-            })
 
-            progress.observe(viewLifecycleOwner, Observer { progressPos ->
-                binding.swipeContainer.isRefreshing = progressPos
-            })
+        viewModel.currencyList.observe(viewLifecycleOwner, Observer {
+            currentAdapter.newList(it)
+        })
 
-            error.observe(viewLifecycleOwner, Observer { error ->
-            })
+        viewModel.progress.observe(viewLifecycleOwner, Observer { progressPos ->
+            binding.swipeContainer.isRefreshing = progressPos
+        })
 
-        }
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+        })
 
     }
 

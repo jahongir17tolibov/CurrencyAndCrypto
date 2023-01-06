@@ -1,23 +1,24 @@
 package com.jt17.currencycrypto.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.adapters.CryptoAdapter
 import com.jt17.currencycrypto.databinding.FragmentCryptoBinding
 import com.jt17.currencycrypto.viewmodel.BaseViewModel
+import com.jt17.currencycrypto.viewmodel.CryptoViewModel
+import kotlinx.coroutines.*
 
 class CryptoFragment : Fragment() {
     private var _binding: FragmentCryptoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: BaseViewModel
+    private lateinit var viewModel: CryptoViewModel
     private val cryptoAdapter by lazy { CryptoAdapter() }
 
     override fun onCreateView(
@@ -29,10 +30,11 @@ class CryptoFragment : Fragment() {
         return binding.root
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[BaseViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[CryptoViewModel::class.java]
 
         initRecyc()
         initLiveData()
@@ -46,24 +48,23 @@ class CryptoFragment : Fragment() {
     }
 
     private fun initLoadData() {
-        viewModel.loadResponse()
+        viewModel.loadResponseBit()
     }
 
     private fun initLiveData() {
-        viewModel.run {
 
-            cryptoList.observe(viewLifecycleOwner, Observer {
-                cryptoAdapter.newList(it)
-            })
+        viewModel.cryptoList.observe(viewLifecycleOwner, Observer {
+            cryptoAdapter.newList(it)
+        })
 
-            progress.observe(viewLifecycleOwner, Observer { progressPos ->
-                binding.swipeContainer.isRefreshing = progressPos
-            })
+        viewModel.progress.observe(viewLifecycleOwner, Observer { progressPos ->
+            binding.swipeContainer.isRefreshing = progressPos
+        })
 
-            error.observe(viewLifecycleOwner, Observer { error ->
-            })
-        }
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+        })
     }
+
 
     private fun initRecyc() {
         binding.cryptoRecyc.run {
