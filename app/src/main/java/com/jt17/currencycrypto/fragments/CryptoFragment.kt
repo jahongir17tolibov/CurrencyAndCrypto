@@ -18,7 +18,8 @@ class CryptoFragment : Fragment() {
     private var _binding: FragmentCryptoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: CryptoViewModel
+    private val viewModel: CryptoViewModel by lazy { ViewModelProvider(requireActivity())[CryptoViewModel::class.java] }
+
     private val cryptoAdapter by lazy { CryptoAdapter() }
 
     override fun onCreateView(
@@ -33,8 +34,6 @@ class CryptoFragment : Fragment() {
     @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(requireActivity())[CryptoViewModel::class.java]
 
         initRecyc()
         initLiveData()
@@ -53,16 +52,18 @@ class CryptoFragment : Fragment() {
 
     private fun initLiveData() {
 
-        viewModel.cryptoList.observe(viewLifecycleOwner, Observer {
-            cryptoAdapter.newList(it)
-        })
+        viewModel.run {
+            cryptoList.observe(viewLifecycleOwner, Observer {
+                cryptoAdapter.newList(it)
+            })
 
-        viewModel.progress.observe(viewLifecycleOwner, Observer { progressPos ->
-            binding.swipeContainer.isRefreshing = progressPos
-        })
+            progress.observe(viewLifecycleOwner, Observer { progressPos ->
+                binding.swipeContainer.isRefreshing = progressPos
+            })
 
-        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-        })
+            error.observe(viewLifecycleOwner, Observer { error ->
+            })
+        }
     }
 
 

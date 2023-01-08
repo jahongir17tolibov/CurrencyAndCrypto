@@ -21,7 +21,7 @@ class CurrencyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val currentAdapter by lazy { CurrencyAdapter() }
-    private lateinit var viewModel: BaseViewModel
+    private val viewModel: BaseViewModel by lazy { ViewModelProvider(requireActivity())[BaseViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +34,6 @@ class CurrencyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(requireActivity())[BaseViewModel::class.java]
 
         initRecyc()
         initLiveData()
@@ -53,16 +51,18 @@ class CurrencyFragment : Fragment() {
 
     private fun initLiveData() {
 
-        viewModel.currencyList.observe(viewLifecycleOwner, Observer {
-            currentAdapter.newList(it)
-        })
+        viewModel.run {
+            currencyList.observe(viewLifecycleOwner, Observer {
+                currentAdapter.newList(it)
+            })
 
-        viewModel.progress.observe(viewLifecycleOwner, Observer { progressPos ->
-            binding.swipeContainer.isRefreshing = progressPos
-        })
+            progress.observe(viewLifecycleOwner, Observer { progressPos ->
+                binding.swipeContainer.isRefreshing = progressPos
+            })
 
-        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-        })
+            error.observe(viewLifecycleOwner, Observer { error ->
+            })
+        }
 
     }
 

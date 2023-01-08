@@ -6,7 +6,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -65,6 +68,9 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ItemHolder>() {
         holder.bind(itemData)
         diffVisiblities(holder)
 
+        holder.itemView.animation =
+            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
+
     }
 
     override fun getItemCount(): Int = baseList.size
@@ -95,5 +101,8 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.ItemHolder>() {
             holder.b.diffTxtPLUS.isVisible = false
         }
     }
+
+
+
 
 }

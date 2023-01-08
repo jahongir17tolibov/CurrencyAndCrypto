@@ -22,7 +22,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:elevation="8dp"
-            app:cardCornerRadius="40dp"
+            app:cardCornerRadius="30dp"
             app:strokeColor="@color/glass"
             app:strokeWidth="1dp">
 
@@ -37,8 +37,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="12dp">
@@ -83,7 +83,7 @@
                     android:elegantTextHeight="true"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text=" Bitcoin"
+                    tools:text=" Bitcoinevftgrbcevrtgbthn"
                     android:ellipsize="end"/>
 
 
@@ -104,18 +104,11 @@
                     android:fontFamily="@font/kufam_medium"
                     android:textColor="@color/black"
                     android:textSize="24sp"
+                    android:maxLines="1"
+                    android:maxEms="7"
+                    android:ellipsize="end"
                     android:textStyle="bold"
-                    tools:text="16853.92" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elegantTextHeight="true"
-                    android:fontFamily="@font/kufam"
-                    android:text=" $"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
+                    tools:text="16853.453" />
             </LinearLayout>
 
         </LinearLayout>
@@ -123,14 +116,14 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
+            android:gravity="end|center"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/Crypto_diff_cardview_1h"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|start"
                 android:backgroundTint="#FF0ADE00"
                 app:cardCornerRadius="15dp">
 
@@ -203,7 +196,6 @@
                 android:id="@+id/Crypto_diff_cardview_24h"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|start"
                 android:layout_marginTop="6dp"
                 android:backgroundTint="#FF0ADE00"
                 app:cardCornerRadius="15dp">
@@ -278,7 +270,6 @@
                 android:id="@+id/Crypto_diff_cardview_7d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|start"
                 android:layout_marginTop="6dp"
                 android:backgroundTint="#FF0ADE00"
                 app:cardCornerRadius="15dp">
@@ -351,18 +342,6 @@
 
 
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/add_to_fav_Crypto"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="4dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/favourite_star_svgrepo_com" />
-
 
     </LinearLayout>
 
