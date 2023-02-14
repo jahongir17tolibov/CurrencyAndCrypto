@@ -5,344 +5,438 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="6dp"
+    android:background="@drawable/custom_ripple"
     android:elevation="10dp"
     app:cardCornerRadius="20dp"
     app:strokeColor="@color/neutral_gray"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="14dp">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:elevation="8dp"
-            app:cardCornerRadius="30dp"
-            app:strokeColor="@color/glass"
-            app:strokeWidth="1dp">
-
-            <ImageView
-                android:id="@+id/crypto_icons"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/avatars" />
-
-        </com.google.android.material.card.MaterialCardView>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingHorizontal="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/crypto_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/kufam_medium"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="1 " />
-
-
-                <TextView
-                    android:id="@+id/crypto_sym"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/kufam"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="BTC" />
-
-                <TextView
-                    android:id="@+id/crypto_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/kufam_medium"
-                    android:textAllCaps="true"
-                    android:maxLines="1"
-                    android:minLines="1"
-                    android:elegantTextHeight="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text=" Bitcoinevftgrbcevrtgbthn"
-                    android:ellipsize="end"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/crypto_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elegantTextHeight="true"
-                    android:fontFamily="@font/kufam_medium"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:maxLines="1"
-                    android:maxEms="7"
-                    android:ellipsize="end"
-                    android:textStyle="bold"
-                    tools:text="16853.453" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/main_crypto_ll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:gravity="end|center"
-            android:orientation="vertical">
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:padding="14dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Crypto_diff_cardview_1h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FF0ADE00"
-                app:cardCornerRadius="15dp">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:elevation="8dp"
+                app:cardCornerRadius="30dp"
+                app:strokeColor="@color/glass"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:id="@+id/crypto_icons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="4dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/crypto_rank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/kufam"
-                        android:text="per 1h"
-                        android:textColor="@color/white"
-                        android:textSize="8sp" />
-
-                    <ImageView
-                        android:id="@+id/diff_imgUP_1h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/diff_imgDOWN_1h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/diff_imgNONE_1h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_sync_alt_24"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/diff_txtPLUS_1h"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" +"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        android:textStyle="normal"
-                        android:visibility="visible" />
-
-                    <TextView
-                        android:id="@+id/diff_status_1h"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elegantTextHeight="true"
                         android:fontFamily="@font/kufam_medium"
-                        android:maxEms="6"
+                        android:textAllCaps="true"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="1 " />
+
+
+                    <TextView
+                        android:id="@+id/crypto_sym"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/kufam"
+                        android:textAllCaps="true"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="BTC" />
+
+                    <TextView
+                        android:id="@+id/crypto_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elegantTextHeight="true"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/kufam_medium"
                         android:maxLines="1"
                         android:minLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        tools:text="21.331" />
+                        android:textAllCaps="true"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="16sp"
+                        tools:text=" Bitcoinevftgrbcevrtgbthn" />
 
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Crypto_diff_cardview_24h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#FF0ADE00"
-                app:cardCornerRadius="15dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="4dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/crypto_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elegantTextHeight="true"
-                        android:fontFamily="@font/kufam"
-                        android:text="per 24h"
-                        android:textColor="@color/white"
-                        android:textSize="8sp" />
-
-
-                    <ImageView
-                        android:id="@+id/diff_imgUP_24h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/diff_imgDOWN_24h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/diff_imgNONE_24h"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_sync_alt_24"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/diff_txtPLUS_24h"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" +"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        android:textStyle="normal"
-                        android:visibility="visible" />
-
-                    <TextView
-                        android:id="@+id/diff_status_24h"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elegantTextHeight="true"
+                        android:ellipsize="end"
                         android:fontFamily="@font/kufam_medium"
-                        android:maxEms="6"
+                        android:maxEms="7"
                         android:maxLines="1"
-                        android:minLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        tools:text="21.331" />
-
-
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="16853.453" />
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Crypto_diff_cardview_7d"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="#FF0ADE00"
-                app:cardCornerRadius="15dp">
+                android:gravity="end|center"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="4dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Crypto_diff_cardview_1h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FF0ADE00"
+                    app:cardCornerRadius="15dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/kufam"
-                        android:text="per 7d"
-                        android:textColor="@color/white"
-                        android:textSize="8sp" />
+                    <LinearLayout
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam"
+                            android:text="per 1h"
+                            android:textColor="@color/white"
+                            android:textSize="8sp" />
+
+                        <ImageView
+                            android:id="@+id/diff_imgUP_1h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/diff_imgDOWN_1h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/diff_imgNONE_1h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_sync_alt_24"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/diff_txtPLUS_1h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" +"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            android:textStyle="normal"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/diff_status_1h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam_medium"
+                            android:maxEms="6"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            tools:text="21.331" />
 
 
-                    <ImageView
-                        android:id="@+id/diff_imgUP_7d"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                        android:visibility="visible" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/diff_imgDOWN_7d"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                        android:visibility="gone" />
+                </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/diff_imgNONE_7d"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_baseline_sync_alt_24"
-                        android:visibility="gone" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Crypto_diff_cardview_24h"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:backgroundTint="#FF0ADE00"
+                    app:cardCornerRadius="15dp">
 
-                    <TextView
-                        android:id="@+id/diff_txtPLUS_7d"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" +"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        android:textStyle="normal"
-                        android:visibility="visible" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
 
-                    <TextView
-                        android:id="@+id/diff_status_7d"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elegantTextHeight="true"
-                        android:fontFamily="@font/kufam_medium"
-                        android:maxEms="6"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-                        tools:text="21.331" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam"
+                            android:text="per 24h"
+                            android:textColor="@color/white"
+                            android:textSize="8sp" />
 
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/diff_imgUP_24h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                            android:visibility="visible" />
 
-            </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/diff_imgDOWN_24h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                            android:visibility="gone" />
 
+                        <ImageView
+                            android:id="@+id/diff_imgNONE_24h"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_sync_alt_24"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/diff_txtPLUS_24h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" +"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            android:textStyle="normal"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/diff_status_24h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam_medium"
+                            android:maxEms="6"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            tools:text="21.331" />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Crypto_diff_cardview_7d"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:backgroundTint="#FF0ADE00"
+                    app:cardCornerRadius="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam"
+                            android:text="per 7d"
+                            android:textColor="@color/white"
+                            android:textSize="8sp" />
+
+
+                        <ImageView
+                            android:id="@+id/diff_imgUP_7d"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/diff_imgDOWN_7d"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/diff_imgNONE_7d"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_baseline_sync_alt_24"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/diff_txtPLUS_7d"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" +"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            android:textStyle="normal"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/diff_status_7d"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elegantTextHeight="true"
+                            android:fontFamily="@font/kufam_medium"
+                            android:maxEms="6"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+                            tools:text="21.331" />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/bottom_hided_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_crypto_ll"
+            android:orientation="vertical"
+            android:paddingVertical="10dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/begin_to_convert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/custom_ripple"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/currency_revenue_svgrepo_com"
+                    app:tint="@color/md_theme_light_scrim" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam"
+                    android:text="Begin to converting"
+                    android:textColor="@color/md_theme_light_onSurfaceVariant"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/add_to_fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/custom_ripple"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/star_added"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/favourite_symbol_svgrepo_com"
+                    app:tint="@color/md_theme_light_scrim"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/star_not_add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/favourite_star_svgrepo_com"
+                    app:tint="@color/md_theme_light_scrim"
+                    android:visibility="visible"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam"
+                    android:text="Add to favourites"
+                    android:textColor="@color/md_theme_light_onSurfaceVariant"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

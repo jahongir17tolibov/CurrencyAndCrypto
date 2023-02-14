@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  for text colors  -->
+    <color name="md_theme_light_scrim">#D2FFC8</color>
+    <!--  for stroke colors and all lines  -->
+    <color name="md_theme_light_onSurfaceVariant">#85957E</color>
+    <!--  bottomNavigation color  -->
+    <color name="bottom_nav_bckg_color">#F20C1200</color>
+    <color name="md_theme_light_inversePrimary">#020900</color>
+    <color name="search_bckg_light_dark">#424E42</color>
+
+</resources>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.ConvertCryptoFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:cardElevation="3dp"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/crypto_icon_conv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ShapedImage_round"
+                        tools:src="@tools:sample/avatars" />
+
+                    <EditText
+                        android:id="@+id/edit_txt_for_crypto"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:hint="Type your value here"
+                        android:inputType="numberSigned"
+                        android:paddingHorizontal="10dp"
+                        android:singleLine="true"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textColorHint="@color/md_theme_light_outline"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/copy_txt"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/ic_round_content_copy_24"
+                        app:tint="@color/md_theme_light_scrim" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="100dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/top_crypto_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="#5C5C5C"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="Eth" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—>btc"
+                    android:textAllCaps="true"
+                    android:textColor="#5C5C5C"
+                    android:textStyle="italic"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/btc_icon"
+                        app:shapeAppearanceOverlay="@style/ShapedImage_round" />
+
+                    <TextView
+                        android:id="@+id/conv_btc_result"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:bufferType="editable"
+                        android:ellipsize="end"
+                        android:hint="0 BTC"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textColorHint="@color/md_theme_light_outline"
+                        android:textSize="20sp"
+                        tools:ignore="TextViewEdits" />
+
+                    <ImageButton
+                        android:id="@+id/copy_btc_result"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/ic_round_content_copy_24"
+                        app:tint="@color/md_theme_light_scrim" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text="1 "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_crypto_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    tools:text="BTC" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" = "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_crypto_btc_pricer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLength="15"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text=" 4.33" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" BTC"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="234dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:cardElevation="10dp"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/top_crypto_name_usd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="#5C5C5C"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="Eth" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—>usd"
+                    android:textAllCaps="true"
+                    android:textColor="#5C5C5C"
+                    android:textStyle="italic"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/usicon"
+                        app:shapeAppearanceOverlay="@style/ShapedImage_round" />
+
+                    <TextView
+                        android:id="@+id/conv_usd_result"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:bufferType="editable"
+                        android:ellipsize="end"
+                        android:hint="$ 0"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:paddingHorizontal="8dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textColorHint="@color/md_theme_light_outline"
+                        android:textSize="20sp"
+                        tools:ignore="TextViewEdits" />
+
+                    <ImageButton
+                        android:id="@+id/copy_usd_result"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/ic_round_content_copy_24"
+                        app:tint="@color/md_theme_light_scrim" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text="1 "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_cryptoToUsd_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    tools:text="BTC" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" = "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_usd_result_pricer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLength="15"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="2212.264" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" USD"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</FrameLayout>

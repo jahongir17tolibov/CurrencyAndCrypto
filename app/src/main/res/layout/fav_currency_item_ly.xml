@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="6dp"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/kufam_medium"
+            android:textAllCaps="true"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="USD" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:elegantTextHeight="true"
+            android:ellipsize="end"
+            android:fontFamily="@font/kufam"
+            android:maxLines="1"
+            android:maxWidth="120dp"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="16sp"
+            tools:text="US dollar212123" />
+
+        <TextView
+            android:id="@+id/pricer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:elegantTextHeight="true"
+            android:ellipsize="end"
+            android:fontFamily="@font/kufam_medium"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="1112.26412" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_ripple"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/twotone_delete_24"
+        app:tint="@color/md_theme_light_scrim" />
+
+</LinearLayout>

@@ -1,19 +1,19 @@
-package com.jt17.currencycrypto.apiServices
+package com.jt17.currencycrypto.Networking
 
-import io.reactivex.Observable
+//import io.reactivex.Observable
 import com.jt17.currencycrypto.models.CryptoIncomingModel
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
-interface Api {
+interface ApiService {
     //Currencies api by central bank of Uzbekistan
     @GET("json/")
-    fun getCurrencyApi(): Observable<List<CurrencyModel>>
+    suspend fun getCurrencyApi(): Response<List<CurrencyModel>>
 
     //Crypto api
     @GET("tickers/")
-    fun getCryptoApi(): Observable<CryptoIncomingModel<List<CryptoModel>>>
+    suspend fun getCryptoApi(): Response<CryptoIncomingModel<List<CryptoModel>>>
 
 }

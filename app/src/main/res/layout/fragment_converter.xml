@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.ConverterFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="7dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintBottom_toTopOf="@id/exchange_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/uzb_or_crypto_icon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ShapedImage_round"
+                        tools:src="@tools:sample/avatars" />
+
+                    <EditText
+                        android:id="@+id/edit_txt_for_uzCurr"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:hint="Type your value here"
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp"
+                        android:singleLine="true"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textColorHint="@color/md_theme_light_outline"
+                        android:textSize="18sp" />
+
+                    <ImageButton
+                        android:id="@+id/copy_txt"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/ic_round_content_copy_24"
+                        app:tint="@color/md_theme_light_scrim" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text="1 "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_curr_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    tools:text="US dollar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" = "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_pricer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="1112.264" />
+
+                <TextView
+                    android:id="@+id/sum_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" SO'M"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/exchange_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:background="@drawable/custom_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/materialCardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+        <TextView
+            android:id="@+id/uzs_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/kufam"
+            android:text="UZS"
+            android:textColor="@color/md_theme_light_onSurfaceVariant"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/exchange_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_round_currency_exchange_24"
+            app:tint="@color/md_theme_light_scrim" />
+
+        <TextView
+            android:id="@+id/getstr_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/kufam"
+            android:textColor="@color/md_theme_light_onSurfaceVariant"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            tools:text="USD" />
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="7dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exchange_layout"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/result_icon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/ShapedImage_round"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/conv_result"
+                        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:hint="$ 0"
+                        android:maxLines="1"
+                        android:bufferType="editable"
+                        android:inputType="number"
+                        android:paddingHorizontal="8dp"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textColorHint="@color/md_theme_light_outline"
+                        android:textSize="18sp"
+                        tools:ignore="TextViewEdits" />
+
+                    <ImageButton
+                        android:id="@+id/copy_result"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:backgroundTint="@android:color/transparent"
+                        android:src="@drawable/ic_round_content_copy_24"
+                        app:tint="@color/md_theme_light_scrim" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text="1 "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_curr_result_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:text="UZS"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:text=" = "
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/conv_result_pricer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLength="15"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text=" 1 / 1112.264" />
+
+                <TextView
+                    android:id="@+id/bottom_ccy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="@font/kufam_medium"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="16sp"
+                    tools:text=" USD" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

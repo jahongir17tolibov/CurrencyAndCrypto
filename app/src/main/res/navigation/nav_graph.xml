@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/converterFragment"
+        android:name="com.jt17.currencycrypto.ui.fragments.ConverterFragment"
+        android:label="fragment_converter"
+        tools:layout="@layout/fragment_converter" >
+        <argument
+            android:name="curr_modelk"
+            app:argType="com.jt17.currencycrypto.models.CurrencyModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="flags_arg"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptoFragment"
+        android:name="com.jt17.currencycrypto.ui.fragments.CryptoFragment"
+        android:label="fragment_crypto"
+        tools:layout="@layout/fragment_crypto" >
+        <action
+            android:id="@+id/action_cryptoFragment_to_convertCryptoFragment2"
+            app:destination="@id/convertCryptoFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jt17.currencycrypto.ui.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_converterFragment"
+            app:destination="@id/converterFragment"
+            app:enterAnim="@android:anim/linear_interpolator"
+            app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_cryptoFragment"
+            app:destination="@id/cryptoFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_currencyFragment"
+            app:destination="@id/currencyFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out" />
+        <argument
+            android:name="fav_curren_model"
+            app:argType="com.jt17.currencycrypto.models.CurrencyModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jt17.currencycrypto.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/currencyFragment"
+        android:name="com.jt17.currencycrypto.ui.fragments.CurrencyFragment"
+        android:label="fragment_currency"
+        tools:layout="@layout/fragment_currency" >
+        <action
+            android:id="@+id/action_currencyFragment_to_converterFragment"
+            app:destination="@id/converterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/convertCryptoFragment2"
+        android:name="com.jt17.currencycrypto.ui.fragments.ConvertCryptoFragment"
+        android:label="fragment_convert_crypto"
+        tools:layout="@layout/fragment_convert_crypto" >
+        <argument
+            android:name="crypto_values"
+            app:argType="com.jt17.currencycrypto.models.CryptoModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="crypto_str"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+</navigation>

@@ -1,24 +1,31 @@
-package com.jt17.currencycrypto.adapters
+package com.jt17.currencycrypto.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.service.autofill.UserData
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.*
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.CryptoLyBinding
 import com.jt17.currencycrypto.models.CryptoModel
+import com.jt17.currencycrypto.ui.fragments.CryptoFragmentDirections
 import com.squareup.picasso.Picasso
 
-object Constants1 {
+class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoDiffUtil()) {
 
-    const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
+    companion object {
+        const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
+    }
 
-}
-
-class CryptoAdapter : RecyclerView.Adapter<CryptoAdapter.ItemHolder>() {
 
     inner class ItemHolder(val b: CryptoLyBinding) : RecyclerView.ViewHolder(b.root) {
 
@@ -33,18 +40,22 @@ class CryptoAdapter : RecyclerView.Adapter<CryptoAdapter.ItemHolder>() {
             b.diffStatus7d.text = result.percent_change_7d
 
             val cryIcons: String = result.symbol.lowercase()
-            Picasso.get().load(Constants1.IMAGE_CRYPTO_URL + cryIcons).error(R.color.black)
+            Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons).error(R.color.black)
                 .into(b.cryptoIcons)
 
         }
 
     }
 
-    private var baseList: List<CryptoModel> = emptyList()
+    internal class CryptoDiffUtil : DiffUtil.ItemCallback<CryptoModel>() {
+        override fun areItemsTheSame(oldItem: CryptoModel, newItem: CryptoModel): Boolean {
+            return newItem.name == oldItem.name
+        }
 
-    fun newList(list: List<CryptoModel>) {
-        baseList = list
-        notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: CryptoModel, newItem: CryptoModel): Boolean {
+            return areItemsTheSame(oldItem, newItem)
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -58,13 +69,17 @@ class CryptoAdapter : RecyclerView.Adapter<CryptoAdapter.ItemHolder>() {
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val itemData = baseList[position]
+        val itemData = getItem(position)
 
         holder.bind(itemData)
 
         statusVisiblities1h(holder)
         statusVisiblities24h(holder)
         statusVisiblities7d(holder)
+
+        initClicks(holder,itemData)
+        holder.itemView.animation =
+            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
     }
 
@@ -146,6 +161,42 @@ class CryptoAdapter : RecyclerView.Adapter<CryptoAdapter.ItemHolder>() {
         }
     }
 
-    override fun getItemCount(): Int = baseList.size
+    private fun initClicks(holder: ItemHolder, itemData: CryptoModel) {
+        holder.itemView.setOnClickListener {
+            if (!holder.b.bottomHidedLl.isVisible) {
+                holder.b.bottomHidedLl.visibility = View.VISIBLE
+            } else {
+                holder.b.bottomHidedLl.visibility = View.GONE
+            }
+        }
+
+        holder.b.beginToConvert.setOnClickListener {
+            val navController = it.findNavController()
+            val action = CryptoFragmentDirections.actionCryptoFragmentToConvertCryptoFragment2(
+                itemData,
+                IMAGE_CRYPTO_URL
+            )
+            navController.navigate(action)
+        }
+        val rotAnim = AlphaAnimation(0.0F, 1.0F)
+        rotAnim.duration = 1000
+        rotAnim.interpolator = BounceInterpolator()
+        holder.b.addToFav.setOnClickListener {
+            if (holder.b.starNotAdd.isVisible) {
+                holder.b.starNotAdd.isVisible = false
+                holder.b.starAdded.run {
+                    isVisible = true
+                    startAnimation(rotAnim)
+                }
+            } else {
+                holder.b.starAdded.isVisible = false
+                holder.b.starNotAdd.run {
+                    isVisible = true
+                    startAnimation(rotAnim)
+                }
+            }
+        }
+
+    }
 
 }
