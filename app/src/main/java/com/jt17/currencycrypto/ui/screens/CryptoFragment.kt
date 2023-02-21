@@ -1,4 +1,4 @@
-package com.jt17.currencycrypto.ui.fragments
+package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,29 +7,25 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jt17.currencycrypto.Networking.NetManager
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.ui.adapters.CryptoAdapter
 import com.jt17.currencycrypto.databinding.FragmentCryptoBinding
 import com.jt17.currencycrypto.models.CryptoModel
-import com.jt17.currencycrypto.repository.MainRepository
 import com.jt17.currencycrypto.ui.activities.MainActivity
-import com.jt17.currencycrypto.viewmodel.BaseViewModel
 import com.jt17.currencycrypto.viewmodel.CryptoViewModel
-import com.jt17.currencycrypto.viewmodel.CryptoViewModelFactory
-import com.jt17.currencycrypto.viewmodel.MyViewModelFactory
-import kotlinx.coroutines.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class CryptoFragment : Fragment() {
     private var _binding: FragmentCryptoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: CryptoViewModel
+    private val viewModel by viewModels<CryptoViewModel>()
     private val cryptoAdapter by lazy { CryptoAdapter() }
     private var list: List<CryptoModel> = emptyList()
 
@@ -45,13 +41,8 @@ class CryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val retrofitService = NetManager.getCryptoApiServices()
-        val mainRepository = MainRepository(retrofitService)
-
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            CryptoViewModelFactory(mainRepository)
-        )[CryptoViewModel::class.java]
+//        val retrofitService = NetManager.getCryptoApiServices()
+//        val mainRepository = MainRepository(retrofitService)
 
         initRecyc()
         initLiveData()
@@ -75,14 +66,13 @@ class CryptoFragment : Fragment() {
             cryptoList.observe(requireActivity()) {
                 list = it
                 cryptoAdapter.submitList(it)
-//                cryptoAdapter.newList(it)
             }
 
             progress.observe(requireActivity()) { progressPos ->
                 binding.swipeContainer.isRefreshing = progressPos
             }
 
-            error.observe(requireActivity(), Observer { error ->
+            errorMessage.observe(requireActivity(), Observer { error ->
             })
         }
     }

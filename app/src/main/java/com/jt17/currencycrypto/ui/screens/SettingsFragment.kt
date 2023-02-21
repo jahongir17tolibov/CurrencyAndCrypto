@@ -1,4 +1,4 @@
-package com.jt17.currencycrypto.ui.fragments
+package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.jt17.currencycrypto.Networking
+package com.jt17.currencycrypto.networking
 
 //import io.reactivex.Observable
 import com.jt17.currencycrypto.models.CryptoIncomingModel

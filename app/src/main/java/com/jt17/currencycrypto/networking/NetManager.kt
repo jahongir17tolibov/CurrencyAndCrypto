@@ -1,4 +1,4 @@
-package com.jt17.currencycrypto.Networking
+package com.jt17.currencycrypto.networking
 
 import retrofit2.Retrofit
 //import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetManager {
 
+    /* retrofit builder for currencies api */
     private var currRetrofitService: ApiService? = null
-
     private val retrofitCur: Retrofit by lazy {
         Retrofit.Builder().baseUrl("https://cbu.uz/uz/arkhiv-kursov-valyut/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -23,8 +23,10 @@ object NetManager {
         return currRetrofitService!!
     }
 
-    private var cryRetrofitService: ApiService? = null
+    /*******************************************************************************************/
 
+/* retrofit builder for crypto api */
+    private var cryRetrofitService: ApiService? = null
     private val retrofitCry: Retrofit by lazy {
         Retrofit.Builder().baseUrl("https://api.coinlore.net/api/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -38,6 +40,7 @@ object NetManager {
         }
         return cryRetrofitService!!
     }
+
 }
 
 

@@ -1,25 +1,13 @@
-package com.jt17.currencycrypto.ui.fragments
+package com.jt17.currencycrypto.ui.screens
 
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.icu.number.NumberFormatter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.BounceInterpolator
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.navArgs
@@ -31,7 +19,6 @@ import com.jt17.currencycrypto.utils.BaseUtils
 import com.squareup.picasso.Picasso
 import java.text.NumberFormat
 import java.util.*
-import kotlin.math.round
 
 class ConverterFragment : Fragment() {
     private var _binding: FragmentConverterBinding? = null
@@ -104,26 +91,15 @@ class ConverterFragment : Fragment() {
     }
 
     private fun convertingValues() {
+        val currencyFormat = NumberFormat.getCurrencyInstance()
 
         binding.editTxtForUzCurr.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(s: CharSequence, p1: Int, p2: Int, p3: Int) {
 
-            }
-
-            override fun afterTextChanged(s: Editable?) {
                 val text = binding.editTxtForUzCurr.text.toString()
-//                binding.editTxtForUzCurr.removeTextChangedListener(this)
-//                try {
-//                    val newStr = s.toString()
-//                    val value = newStr.toLong()
-//
-//
-//
-//                } catch (_: NumberFormatException) {
-//                }
-//                val originalString = s.toString()
+
                 when {
                     text.isNotEmpty() -> {
                         when {
@@ -142,6 +118,10 @@ class ConverterFragment : Fragment() {
                     }
                     text.isEmpty() -> binding.convResult.text = "0.0"
                 }
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
             }
         })
     }

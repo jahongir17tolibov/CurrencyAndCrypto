@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.ConverterFragment">
+    tools:context=".ui.screens.ConverterFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
@@ -53,7 +53,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:hint="Type your value here"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingHorizontal="10dp"
                         android:singleLine="true"
                         android:textAppearance="?attr/textAppearanceHeadlineLarge"

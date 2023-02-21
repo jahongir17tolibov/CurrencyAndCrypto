@@ -4,15 +4,11 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
-import android.widget.SearchView.OnQueryTextListener
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.CurrencyLyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
-import com.jt17.currencycrypto.ui.fragments.CurrencyFragmentDirections
+import com.jt17.currencycrypto.ui.screens.CurrencyFragmentDirections
 import com.squareup.picasso.Picasso
 import java.util.*
 

@@ -1,9 +1,7 @@
-package com.jt17.currencycrypto.ui.fragments
+package com.jt17.currencycrypto.ui.screens
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.graphics.Bitmap.Config
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,10 +14,6 @@ import com.airbnb.lottie.LottieDrawable
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentHomeBinding
 import com.jt17.currencycrypto.utils.BaseUtils
-import com.jt17.currencycrypto.utils.BaseUtils.getThemes
-import com.jt17.currencycrypto.utils.BaseUtils.saveThemes
-import com.orhanobut.hawk.Hawk
-import com.orhanobut.hawk.HawkBuilder
 
 class HomeFragment : Fragment() {
 
@@ -37,8 +31,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        isDarkTheme = prefs.getBoolean("isDark", false)
-        if (isDarkTheme) {
+        if (BaseUtils.themePosition) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -59,25 +52,21 @@ class HomeFragment : Fragment() {
     private fun changeTheme() {
 //        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
 //        val themePreference = sharedPref.getString("theme", "light")
-        if (getThemes()) {
+        if (BaseUtils.themePosition) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            saveThemes(true)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            saveThemes(false)
         }
     }
 
     private fun initClicks() {
         binding.changeTheme.setOnClickListener {
-            isDarkTheme != isDarkTheme
-            prefs.edit().putBoolean("isDark", isDarkTheme).apply()
-            if (isDarkTheme) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+            BaseUtils.themePosition != BaseUtils.themePosition
             requireActivity().recreate()
+//            parentFragmentManager.beginTransaction()
+//                .detach(this)
+//                .attach(this)
+//                .commit()
         }
     }
 

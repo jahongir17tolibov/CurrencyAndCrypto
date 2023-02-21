@@ -1,41 +1,37 @@
-package com.jt17.currencycrypto.ui.fragments
+package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jt17.currencycrypto.Networking.NetManager
 import com.jt17.currencycrypto.R
-import com.jt17.currencycrypto.ui.adapters.CurrencyAdapter
 import com.jt17.currencycrypto.databinding.FragmentCurrencyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
-import com.jt17.currencycrypto.repository.MainRepository
 import com.jt17.currencycrypto.ui.activities.MainActivity
+import com.jt17.currencycrypto.ui.adapters.CurrencyAdapter
 import com.jt17.currencycrypto.ui.adapters.FavCurrenciesAdapter
-import com.jt17.currencycrypto.viewmodel.BaseViewModel
-import com.jt17.currencycrypto.viewmodel.MyViewModelFactory
-import com.jt17.currencycrypto.viewmodel.RoomViewModel
+import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class CurrencyFragment : Fragment() {
     private var _binding: FragmentCurrencyBinding? = null
     private val binding get() = _binding!!
 
     private val currentAdapter: CurrencyAdapter by lazy { CurrencyAdapter() }
     private val favCurrAdapter: FavCurrenciesAdapter by lazy { FavCurrenciesAdapter() }
-    private lateinit var viewModel: BaseViewModel
-    private lateinit var roomViewModel: RoomViewModel
+
+    private val viewModel by viewModels<CurrencyViewModel>()
+
+    //    private lateinit var roomViewModel: RoomViewModel
     private var list: List<CurrencyModel> = emptyList()
-    private var favList: List<CurrencyModel> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +45,10 @@ class CurrencyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val retrofitService = NetManager.getCurrencyApiService()
-        val mainRepository = MainRepository(retrofitService)
+//        val retrofitService = NetManager.getCurrencyApiService()
+//        val mainRepository = MainRepository(retrofitService)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            MyViewModelFactory(mainRepository)
-        )[BaseViewModel::class.java]
-
-        roomViewModel = ViewModelProvider(requireActivity())[RoomViewModel::class.java]
+//        roomViewModel = ViewModelProvider(requireActivity())[RoomViewModel::class.java]
 
         initRecyc()
         initLiveData()
@@ -75,26 +66,27 @@ class CurrencyFragment : Fragment() {
     }
 
     private fun initLiveData() {
-
         viewModel.run {
-            currencyList.observe(requireActivity()) {
-                list = it
+            currencyList.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    list = it
+                }
                 currentAdapter.submitList(it)
             }
 
-            progress.observe(requireActivity()) { progressPos ->
+            progress.observe(viewLifecycleOwner) { progressPos ->
                 binding.swipeContainer.isRefreshing = progressPos
             }
 
-            error.observe(requireActivity()) {
+            errorMessage.observe(viewLifecycleOwner) {
             }
         }
 
-        roomViewModel.run {
-            getAllCurrencies.observe(requireActivity()) {
-                currentAdapter.submitList(it)
-            }
-        }
+//        roomViewModel.run {
+//            getAllCurrencies.observe(requireActivity()) {
+//                currentAdapter.submitList(it)
+//            }
+//        }
 
     }
 

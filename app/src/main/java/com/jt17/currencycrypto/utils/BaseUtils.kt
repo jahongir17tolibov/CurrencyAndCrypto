@@ -41,12 +41,10 @@ object BaseUtils {
         return round(value.times(100.0)).div(100.0)
     }
 
-    fun saveThemes(isLight: Boolean) {
-        Hawk.put("isLight", isLight)
-    }
-
-    fun getThemes(): Boolean {
-        return Hawk.get("isLight", true)
-    }
-
+    var themePosition = true
+        get() = Hawk.get("isLight", true)
+        set(value) {
+            Hawk.put("isLight", value)
+            field = value
+        }
 }

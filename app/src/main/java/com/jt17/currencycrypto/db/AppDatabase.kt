@@ -1,4 +1,4 @@
-package com.jt17.currencycrypto.room
+package com.jt17.currencycrypto.db
 
 import android.content.Context
 import androidx.room.Database
@@ -14,7 +14,7 @@ import com.jt17.currencycrypto.models.CurrencyModel
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun userDao(): UserDao
+    abstract fun userDao(): AppDao
 
     companion object {
 

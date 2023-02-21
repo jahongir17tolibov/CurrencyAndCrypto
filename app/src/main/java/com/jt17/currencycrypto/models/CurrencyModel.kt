@@ -29,7 +29,7 @@ data class CurrencyModel(
     val Rate: String,
 
     @ColumnInfo(name = "differences")
-    val Diff: String,
+    val Diff: String
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)

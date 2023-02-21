@@ -1,14 +1,15 @@
-package com.jt17.currencycrypto.room
+package com.jt17.currencycrypto.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
+import androidx.room.*
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
 
 @Dao
-interface UserDao {
+interface AppDao {
+
+//    @Update(onConflict = OnConflictStrategy.REPLACE)
+//    fun updateRecord()
 
     @Query("SELECT * FROM currency_data_table")
     fun getAllCurrencyData(): LiveData<List<CurrencyModel>>/* get all data from currency model */

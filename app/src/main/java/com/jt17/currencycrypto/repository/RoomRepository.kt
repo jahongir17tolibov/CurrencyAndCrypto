@@ -4,42 +4,38 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
-import com.jt17.currencycrypto.room.AppDatabase
-import com.jt17.currencycrypto.room.UserDao
+import com.jt17.currencycrypto.db.AppDatabase
+import com.jt17.currencycrypto.db.AppDao
+import javax.inject.Inject
 
-class RoomRepository(applicationContext: Application) {
+class RoomRepository @Inject constructor(private val appDao: AppDao) {
 
-    var db: UserDao = AppDatabase.getDatabaseClient(applicationContext).userDao()
+//    private var db: AppDao = AppDatabase.getDatabaseClient(applicationContext).userDao()
 
     //get all currency data
-    val getAllCurrencies: LiveData<List<CurrencyModel>> = db.getAllCurrencyData()
+    val getAllCurrencies: LiveData<List<CurrencyModel>> = appDao.getAllCurrencyData()
 
     //get all crypto data
-    val getAllCrypto: LiveData<List<CryptoModel>> = db.getAllCryptoData()
+    val getAllCrypto: LiveData<List<CryptoModel>> = appDao.getAllCryptoData()
 
     //get one currency
-    fun getOneCurr(currencyName: String): LiveData<CurrencyModel> {
-        return db.getCurrencyName(currencyName)
-    }
+    fun getOneCurr(currencyName: String): LiveData<CurrencyModel> =
+        appDao.getCurrencyName(currencyName)
+
 
     //get one crypto currency
-    fun getOneCry(cryptoName: String): LiveData<CryptoModel> {
-        return db.getCryptoName(cryptoName)
-    }
+    fun getOneCry(cryptoName: String): LiveData<CryptoModel> = appDao.getCryptoName(cryptoName)
+
 
     //delete one currency
-    suspend fun deleteOneCurr(currency: CurrencyModel) {
-        db.deleteCurrency(currency)
-    }
+    suspend fun deleteOneCurr(currency: CurrencyModel) = appDao.deleteCurrency(currency)
+
 
     //delete one crypto
-    suspend fun deleteOneCry(crypto: CryptoModel) {
-        db.deleteCrypto(crypto)
-    }
+    suspend fun deleteOneCry(crypto: CryptoModel) = appDao.deleteCrypto(crypto)
+
 
     //delete table
-    suspend fun deleteAll() {
-        db.deleteAll()
-    }
+    suspend fun deleteAll() = appDao.deleteAll()
 
 }

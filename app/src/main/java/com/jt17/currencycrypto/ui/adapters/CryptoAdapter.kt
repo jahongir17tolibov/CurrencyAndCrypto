@@ -3,13 +3,11 @@ package com.jt17.currencycrypto.ui.adapters
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.CryptoLyBinding
 import com.jt17.currencycrypto.models.CryptoModel
-import com.jt17.currencycrypto.ui.fragments.CryptoFragmentDirections
+import com.jt17.currencycrypto.ui.screens.CryptoFragmentDirections
 import com.squareup.picasso.Picasso
 
 class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoDiffUtil()) {
