@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.jt17.currencycrypto.ui.adapters.FavCurrenciesAdapter
 import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import com.jt17.currencycrypto.models.Result
 
 @AndroidEntryPoint
 class CurrencyFragment : Fragment() {
@@ -30,7 +32,6 @@ class CurrencyFragment : Fragment() {
 
     private val viewModel by viewModels<CurrencyViewModel>()
 
-    //    private lateinit var roomViewModel: RoomViewModel
     private var list: List<CurrencyModel> = emptyList()
 
     override fun onCreateView(
@@ -45,48 +46,49 @@ class CurrencyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val retrofitService = NetManager.getCurrencyApiService()
-//        val mainRepository = MainRepository(retrofitService)
-
-//        roomViewModel = ViewModelProvider(requireActivity())[RoomViewModel::class.java]
-
-        initRecyc()
-        initLiveData()
-        initLoadData()
-        searchViewCurr()
-        binding.swipeContainer.setOnRefreshListener {
-            initLoadData()
-        }
-        binding.swipeContainer.isRefreshing = true
+        initRecyc()/* init recyclerview, adapters */
+        initLiveData()/* init LiveData from viewModel */
+        initLoadData()/* load data from viewModel */
+        searchViewCurr()/* init searchView search currencies by name, rate and others */
+        initClicks()/* init all clicks, listeners */
 
     }
 
     private fun initLoadData() {
-        viewModel.getCurrencyApi()
+        viewModel.getCurrencies()
     }
 
     private fun initLiveData() {
-        viewModel.run {
-            currencyList.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    list = it
+        viewModel.currencyList.observe(viewLifecycleOwner) { result ->
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    result.data?.let { data ->
+                        list = data
+                        val mList = data.toMutableList()
+                        mList.clear()
+                        val sortedList = data.sortedBy { it.Ccy }
+                        mList.addAll(sortedList)
+                        currentAdapter.submitList(mList)
+                    }
+                    binding.swipeContainer.isRefreshing = false
                 }
-                currentAdapter.submitList(it)
+
+                Result.Status.LOADING -> binding.swipeContainer.isRefreshing = true
+
+                Result.Status.ERROR -> {
+                    result?.message?.let {
+                        Toast.makeText(
+                            requireContext(),
+                            "Check your internet connection!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    binding.swipeContainer.isRefreshing = false
+                }
             }
 
-            progress.observe(viewLifecycleOwner) { progressPos ->
-                binding.swipeContainer.isRefreshing = progressPos
-            }
-
-            errorMessage.observe(viewLifecycleOwner) {
-            }
         }
 
-//        roomViewModel.run {
-//            getAllCurrencies.observe(requireActivity()) {
-//                currentAdapter.submitList(it)
-//            }
-//        }
 
     }
 
@@ -118,17 +120,17 @@ class CurrencyFragment : Fragment() {
     private fun initRecyc() {
         binding.currencyRecyc.run {
             layoutManager = LinearLayoutManager(requireContext())
-
             adapter = currentAdapter
-        }
-
-        currentAdapter.setOnFavItemClickListener {
-            favCurrAdapter.submitList(list)
         }
     }
 
     private fun initClicks() {
-
+        currentAdapter.setOnFavItemClickListener {
+            favCurrAdapter.submitList(list)
+        }
+        binding.swipeContainer.setOnRefreshListener {
+            initLoadData()
+        }
     }
 
     override fun onResume() {
