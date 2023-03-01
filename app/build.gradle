@@ -66,7 +66,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-beta01"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.0-rc01"
 
     //networking
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -93,21 +93,17 @@ dependencies {
     //Lottie Animation
     implementation 'com.airbnb.android:lottie:3.4.0'
 
-    //formatted edittext and textview
-    implementation 'com.cottacush:CurrencyEditText:1.0.0'
-
+    //Navigation dependencies
     def nav_version = "2.5.3"
-    //navigation dependencies
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
-    // - - Room Persistence Library
+    //Room Persistence Library
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
     //dagger hilt

@@ -13,39 +13,39 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class RoomViewModel @Inject constructor(private val repository: RoomRepository) : ViewModel() {
-
-//    private val repository: RoomRepository
+//@HiltViewModel
+//class RoomViewModel @Inject constructor(private val repository: RoomRepository) : ViewModel() {
 //
-//    init {
-//        repository = RoomRepository(application)
+////    private val repository: RoomRepository
+////
+////    init {
+////        repository = RoomRepository(application)
+////    }
+//
+//    val getAllCurrencies = repository.getAllCurrencies
+//    val getAllCrypto = repository.getAllCrypto
+//
+//
+//    fun getOneCurr(currencyName: String): LiveData<CurrencyModel> {
+//        return repository.getOneCurr(currencyName)
 //    }
-
-    val getAllCurrencies = repository.getAllCurrencies
-    val getAllCrypto = repository.getAllCrypto
-
-
-    fun getOneCurr(currencyName: String): LiveData<CurrencyModel> {
-        return repository.getOneCurr(currencyName)
-    }
-
-    fun getOneCry(cryptoName: String): LiveData<CryptoModel> {
-        return repository.getOneCry(cryptoName)
-    }
-
-
-    fun deleteOneCurr(currency: CurrencyModel) = viewModelScope.launch(IO) {
-        repository.deleteOneCurr(currency)
-    }
-
-    fun deleteOneCry(crypto: CryptoModel) = viewModelScope.launch(IO) {
-        repository.deleteOneCry(crypto)
-    }
-
-
-    fun deleteAll() = viewModelScope.launch(IO) {
-        repository.deleteAll()
-    }
-
-}
+//
+//    fun getOneCry(cryptoName: String): LiveData<CryptoModel> {
+//        return repository.getOneCry(cryptoName)
+//    }
+//
+//
+//    fun deleteOneCurr(currency: CurrencyModel) = viewModelScope.launch(IO) {
+//        repository.deleteOneCurr(currency)
+//    }
+//
+//    fun deleteOneCry(crypto: CryptoModel) = viewModelScope.launch(IO) {
+//        repository.deleteOneCry(crypto)
+//    }
+//
+//
+//    fun deleteAll() = viewModelScope.launch(IO) {
+//        repository.deleteAll()
+//    }
+//
+//}
