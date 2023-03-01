@@ -1,26 +1,20 @@
 package com.jt17.currencycrypto.app
 
 import android.app.Application
+import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App: Application() {
+class App : Application() {
 
-//    companion object {
-//        lateinit var app: App
-//    }
-
-//    private lateinit var appComponent: AppComponent
+    companion object {
+        private lateinit var instance: App
+    }
 
     override fun onCreate() {
         super.onCreate()
-        Hawk.init(this).build()
-
-//        app = this
-
-//        appComponent = DaggerA
-//        appComponent.myInject(this)
-
+        instance = this
+        AppPreference.init(this)
     }
 }

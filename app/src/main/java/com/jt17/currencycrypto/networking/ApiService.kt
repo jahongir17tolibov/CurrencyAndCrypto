@@ -14,6 +14,6 @@ interface ApiService {
 
     //Crypto api
     @GET("tickers/")
-    suspend fun getCryptoApi(): Response<CryptoIncomingModel<List<CryptoModel>>>
+    suspend fun getCryptoApi(): Response<CryptoIncomingModel>
 
 }

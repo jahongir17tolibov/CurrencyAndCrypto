@@ -36,12 +36,7 @@ data class CryptoModel(
     @ColumnInfo(name = "market_cap_usd")
     val market_cap_usd: String,
 
-    //for exceptions on visibility:)
-    var pos: Boolean = false
-) : Parcelable {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int? = null
-
-}
+    var id: Int
+) : Parcelable
