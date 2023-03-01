@@ -37,8 +37,8 @@ object BaseUtils {
 //        tvTextToPaste.text = clipboardManager.primaryClip?.getItemAt(0)?.text -> Paste from clipboard
     }
 
-    infix fun idealDoubleResult(value: Double): Double {
-        return round(value.times(100.0)).div(100.0)
+    infix fun idealDoubleResult(value: Double): String {
+        return String.format("%.3f", value)
     }
 
     var themePosition = true

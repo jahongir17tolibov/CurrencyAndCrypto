@@ -21,6 +21,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
@@ -62,73 +63,111 @@
                 app:rippleColor="@color/neutral_gray" />
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:id="@+id/circularRevealCardView"
+                android:id="@+id/fav_currenciespath"
                 android:layout_width="0dp"
-                android:layout_height="240dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="360dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                app:cardCornerRadius="30dp"
+                app:layout_constraintBottom_toTopOf="@id/vawe_lottie"
+                app:layout_constraintEnd_toStartOf="@+id/circularRevealCardView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/change_theme"
                 app:strokeColor="@color/md_theme_light_scrim"
-                app:strokeWidth="3dp" >
+                app:strokeWidth="6dp">
 
-                <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                <com.google.android.material.circularreveal.CircularRevealFrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="4dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/favourite_curr"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="16dp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/kufam_medium"
+                        android:text="Favourite Currencies"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="17dp" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/favourite_curr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Favourite Currencies"
-                            android:textColor="@color/md_theme_light_scrim"
-                            android:textSize="17dp"
-                            android:fontFamily="@font/kufam_medium"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginStart="10dp"
-                            android:elegantTextHeight="true"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/fav_currencies_lottie"
+                        android:layout_width="200dp"
+                        android:layout_height="270dp"
+                        android:layout_gravity="center|bottom"
+                        android:adjustViewBounds="true"
+                        android:layout_marginStart="40dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:lottie_loop="true"
+                        app:lottie_speed="1" />
 
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:id="@+id/vawe_lottie"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintDimensionRatio="1:1"
-                            app:lottie_loop="true"
-                            app:lottie_speed="1"/>
+                </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
-                    </LinearLayout>
+            </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/favourite_curr_recyc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:listitem="@layout/fav_currency_item_ly"/>
-                </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+                android:id="@+id/circularRevealCardView"
+                android:layout_width="0dp"
+                android:layout_height="360dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                app:cardCornerRadius="30dp"
+                app:layout_constraintBottom_toTopOf="@id/vawe_lottie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fav_currenciespath"
+                app:layout_constraintTop_toBottomOf="@+id/change_theme"
+                app:strokeColor="@color/md_theme_light_scrim"
+                app:strokeWidth="6dp">
+
+                <com.google.android.material.circularreveal.CircularRevealFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/favourite_cry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="16dp"
+                        android:elegantTextHeight="true"
+                        android:fontFamily="@font/kufam_medium"
+                        android:text="Favourite Crypto currencies"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="17dp" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/fav_crypto_lottie"
+                        android:layout_width="200dp"
+                        android:layout_height="270dp"
+                        android:layout_gravity="center|bottom"
+                        android:adjustViewBounds="true"
+                        android:layout_marginStart="40dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:lottie_loop="true"
+                        app:lottie_speed="1" />
+
+                </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
 
 
             </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
-            <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:layout_width="0dp"
-                android:layout_height="240dp"
-                android:layout_marginTop="10dp"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/vawe_lottie"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView"
-                app:strokeColor="@color/md_theme_light_scrim"
-                app:strokeWidth="3dp" />
-
+                app:lottie_loop="true"
+                app:lottie_speed="1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

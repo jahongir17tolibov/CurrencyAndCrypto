@@ -21,7 +21,7 @@ class ConvertCryptoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: ConvertCryptoFragmentArgs by navArgs()
-    private val btcPrice by lazy { args.cryptoValues?.price_btc?.toFloatOrNull() }
+    private val btcPrice by lazy { args.cryptoValues?.price_btc?.toDoubleOrNull() }
     private val usdPrice by lazy { args.cryptoValues?.price_usd?.toDoubleOrNull() }
 
     override fun onCreateView(
@@ -47,8 +47,8 @@ class ConvertCryptoFragment : Fragment() {
         binding.convCryptoToUsdName.text = args.cryptoValues?.symbol
         binding.topCryptoName.text = args.cryptoValues?.symbol
         binding.topCryptoNameUsd.text = args.cryptoValues?.symbol
-        binding.convCryptoBtcPricer.text = btcPrice.toString()
-        binding.convUsdResultPricer.text = usdPrice.toString()
+        binding.convCryptoBtcPricer.text = BaseUtils.idealDoubleResult(btcPrice!!)
+        binding.convUsdResultPricer.text = BaseUtils.idealDoubleResult(usdPrice!!)
 
         val cryIcons: String = args.cryptoValues?.symbol!!.lowercase()
         Picasso.get().load(args.cryptoStr + cryIcons).error(R.color.black)
@@ -86,15 +86,15 @@ class ConvertCryptoFragment : Fragment() {
 
     private fun convertCryptos(input: String): String {
         return run {
-            val resultValue = input.toFloatOrNull()?.times(btcPrice!!)
-            resultValue!!.toString()
+            val resultValue = input.toDoubleOrNull()?.times(btcPrice!!)
+            BaseUtils.idealDoubleResult(resultValue!!)
         }
     }
 
     private fun convertToUSD(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times(usdPrice!!)
-            BaseUtils.idealDoubleResult(resultValue!!).toString()
+            BaseUtils.idealDoubleResult(resultValue!!)
         }
     }
 

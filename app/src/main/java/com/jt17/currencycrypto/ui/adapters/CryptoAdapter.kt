@@ -24,6 +24,11 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
     }
 
+    private var onItemClickListener: ((CryptoModel) -> Unit)? = null
+
+    fun setOnFavItemClickListener(listener: ((CryptoModel) -> Unit)? = null) {
+        onItemClickListener = listener
+    }
 
     inner class ItemHolder(val b: CryptoLyBinding) : RecyclerView.ViewHolder(b.root) {
 
@@ -75,7 +80,8 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         statusVisiblities24h(holder)
         statusVisiblities7d(holder)
 
-        initClicks(holder,itemData)
+        initClicks(holder, itemData)
+
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
@@ -180,6 +186,9 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         rotAnim.duration = 1000
         rotAnim.interpolator = BounceInterpolator()
         holder.b.addToFav.setOnClickListener {
+
+            onItemClickListener?.invoke(itemData)
+
             if (holder.b.starNotAdd.isVisible) {
                 holder.b.starNotAdd.isVisible = false
                 holder.b.starAdded.run {

@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import com.jt17.currencycrypto.models.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
-import com.jt17.currencycrypto.ui.adapters.CryptoAdapter
 import com.jt17.currencycrypto.databinding.FragmentCryptoBinding
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
+import com.jt17.currencycrypto.ui.adapters.CryptoAdapter
 import com.jt17.currencycrypto.viewmodel.CryptoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -48,32 +49,46 @@ class CryptoFragment : Fragment() {
         initLiveData()
         initLoadData()
         searchCryptoCurrencies()
-
-        binding.swipeContainer.setOnRefreshListener {
-            initLoadData()
-        }
-        binding.swipeContainer.isRefreshing = true
+        initClicks()
+//        binding.swipeContainer.isRefreshing = true
 
     }
 
     private fun initLoadData() {
-        viewModel.getCryptoApi()
+        viewModel.getCryptos()
     }
 
     private fun initLiveData() {
 
-        viewModel.run {
-            cryptoList.observe(requireActivity()) {
-                list = it
-                cryptoAdapter.submitList(it)
-            }
+        viewModel.cryptoList.observe(viewLifecycleOwner) { result ->
+            when (result.status) {
+                Result.Status.SUCCESS -> {
+                    result.data?.data?.let { data ->
+                        list = data
+                        val mList = data.toMutableList()
+                        mList.clear()
+                        val sortedList = data.sortedBy { it.rank.toInt() }
+                        mList.addAll(sortedList)
+                        cryptoAdapter.submitList(mList)
+                    }
+                    binding.swipeContainer.isRefreshing = false
+                }
 
-            progress.observe(requireActivity()) { progressPos ->
-                binding.swipeContainer.isRefreshing = progressPos
-            }
+                Result.Status.LOADING -> {
+                    binding.swipeContainer.isRefreshing = true
+                }
 
-            errorMessage.observe(requireActivity(), Observer { error ->
-            })
+                Result.Status.ERROR -> {
+                    result?.message?.let {
+                        Toast.makeText(
+                            requireContext(),
+                            "Check your internet connection!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    binding.swipeContainer.isRefreshing = false
+                }
+            }
         }
     }
 
@@ -83,6 +98,7 @@ class CryptoFragment : Fragment() {
             adapter = cryptoAdapter
         }
     }
+
 
     private fun searchCryptoCurrencies() {
         val queryTextListener = object : SearchView.OnQueryTextListener {
@@ -108,6 +124,16 @@ class CryptoFragment : Fragment() {
             }
         }
         binding.crySearch.setOnQueryTextListener(queryTextListener)
+    }
+
+    private fun initClicks() {
+        cryptoAdapter.setOnFavItemClickListener {
+
+        }
+
+        binding.swipeContainer.setOnRefreshListener {
+            initLoadData()
+        }
     }
 
     override fun onResume() {

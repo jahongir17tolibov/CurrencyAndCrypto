@@ -51,7 +51,7 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:hint="Type your value here"
-                        android:inputType="numberSigned"
+                        android:inputType="numberDecimal"
                         android:paddingHorizontal="10dp"
                         android:singleLine="true"
                         android:textAppearance="?attr/textAppearanceHeadlineLarge"

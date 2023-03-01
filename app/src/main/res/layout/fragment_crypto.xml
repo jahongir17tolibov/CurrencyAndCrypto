@@ -37,7 +37,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/crypto_recyc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/material3"
                 tools:listitem="@layout/crypto_ly" />
 

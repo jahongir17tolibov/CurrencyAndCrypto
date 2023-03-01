@@ -1,41 +1,31 @@
 package com.jt17.currencycrypto.ui.screens
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.jt17.currencycrypto.R
+import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.FragmentHomeBinding
-import com.jt17.currencycrypto.utils.BaseUtils
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val navigate by lazy { findNavController() }
-    private var isDarkTheme: Boolean = false
-    private val prefs: SharedPreferences by lazy {
-        requireContext().getSharedPreferences("theme", Context.MODE_PRIVATE)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        if (BaseUtils.themePosition) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -50,42 +40,64 @@ class HomeFragment : Fragment() {
     }
 
     private fun changeTheme() {
-//        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-//        val themePreference = sharedPref.getString("theme", "light")
-        if (BaseUtils.themePosition) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        val pos = when (!AppPreference.getInstance().loadNightModeState()) {
+            true -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                true
+            }
+            false -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                false
+            }
         }
+        AppPreference.getInstance().setNightModeState(pos)
+
     }
 
     private fun initClicks() {
         binding.changeTheme.setOnClickListener {
-            BaseUtils.themePosition != BaseUtils.themePosition
+            AppPreference.getInstance().loadNightModeState() != AppPreference.getInstance()
+                .loadNightModeState()
+            changeTheme()
             requireActivity().recreate()
-//            parentFragmentManager.beginTransaction()
-//                .detach(this)
-//                .attach(this)
-//                .commit()
         }
     }
 
     private fun initRecyc() {
-        binding.favouriteCurrRecyc.layoutManager = LinearLayoutManager(requireContext())
+//        binding.favouriteCurrRecyc.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setupLottie() {
         binding.lottie1.apply {
-            setAnimation(R.raw.abstract1_light)
+            setAnimation(R.raw.abstract1_night)
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
         }
 
         binding.lottie2.apply {
-            setAnimation(R.raw.fadding_cube_light)
+            setAnimation(R.raw.fadding_cube_nighht)
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
         }
+
+        binding.vaweLottie.apply {
+            setAnimation(R.raw.lines_waves)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
+        }
+
+        binding.favCurrenciesLottie.apply {
+            setAnimation(R.raw.currency_lottie)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
+        }
+
+        binding.favCryptoLottie.apply {
+            setAnimation(R.raw.crypro_lottie)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
+        }
+
     }
 
     override fun onDestroyView() {

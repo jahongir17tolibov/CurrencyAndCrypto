@@ -54,7 +54,9 @@
             android:id="@+id/action_homeFragment_to_currencyFragment"
             app:destination="@id/currencyFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/fade_out" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="fav_curren_model"
             app:argType="com.jt17.currencycrypto.models.CurrencyModel" />
@@ -72,6 +74,13 @@
         <action
             android:id="@+id/action_currencyFragment_to_converterFragment"
             app:destination="@id/converterFragment" />
+        <action
+            android:id="@+id/action_currencyFragment_to_cryptoFragment"
+            app:destination="@id/cryptoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/convertCryptoFragment2"

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.navArgs
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentConverterBinding
@@ -53,7 +54,7 @@ class ConverterFragment : Fragment() {
         binding.convPricer.text = args.currModelk?.Rate
         binding.getstrSymbol.text = args.currModelk?.Ccy
         binding.bottomCcy.text = " " + args.currModelk?.Ccy
-        binding.convResultPricer.text = resultToCurr.toString()
+        binding.convResultPricer.text = String.format("%.4f", resultToCurr)
 
         val flags: String? = args.currModelk?.Ccy?.take(2)?.lowercase()
 
@@ -75,7 +76,7 @@ class ConverterFragment : Fragment() {
 
         binding.convCurrName.text = binding.convCurrResultName.text.toString()
         binding.convResultPricer.text = binding.convPricer.text.toString()
-        binding.convPricer.text = resultToCurr.toString()
+        binding.convPricer.text = BaseUtils.idealDoubleResult(resultToCurr)
         binding.sumTxt.text = " " + args.currModelk?.Ccy
 
         val flags: String? = args.currModelk?.Ccy?.take(2)?.lowercase()
@@ -91,7 +92,6 @@ class ConverterFragment : Fragment() {
     }
 
     private fun convertingValues() {
-        val currencyFormat = NumberFormat.getCurrencyInstance()
 
         binding.editTxtForUzCurr.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, p1: Int, p2: Int, p3: Int) {}
@@ -108,7 +108,7 @@ class ConverterFragment : Fragment() {
                                 binding.convResult.text = result
                             }
                             binding.getstrSymbol.text.toString().contains("UZS") -> {
-                                val swipedText = binding.editTxtForUzCurr.text.toString().toFloat()
+                                val swipedText = binding.editTxtForUzCurr.text.toString().toDouble()
                                 val result = convertToUzsCurrency(swipedText.toString())
                                 binding.convResult.text = result
                             }
@@ -129,14 +129,14 @@ class ConverterFragment : Fragment() {
     private fun convertCurrency(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times(uzsPrice!!)
-            BaseUtils.idealDoubleResult(resultValue!!).toString()
+            BaseUtils.idealDoubleResult(resultValue!!)
         }
     }
 
     private fun convertToUzsCurrency(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times((1 / uzsPrice!!))
-            resultValue!!.toString()
+            BaseUtils.idealDoubleResult(resultValue!!)
         }
     }
 
