@@ -3,6 +3,7 @@ package com.jt17.currencycrypto.ui.adapters
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +25,10 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
     }
 
-    private var onItemClickListener: ((CryptoModel) -> Unit)? = null
-
-    fun setOnFavItemClickListener(listener: ((CryptoModel) -> Unit)? = null) {
-        onItemClickListener = listener
+    private val itemVisibilityMap = HashMap<Int, Boolean>().apply {
+        for (i in 0 until itemCount) {
+            put(i, false)
+        }
     }
 
     inner class ItemHolder(val b: CryptoLyBinding) : RecyclerView.ViewHolder(b.root) {
@@ -43,6 +44,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
             b.diffStatus7d.text = result.percent_change_7d
 
             val cryIcons: String = result.symbol.lowercase()
+            Log.d("hmmmm2", "bind: $cryIcons")
             Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons).error(R.color.black)
                 .into(b.cryptoIcons)
 
@@ -73,6 +75,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val itemData = getItem(position)
+        val itemVis = itemVisibilityMap[position] ?: false
 
         holder.bind(itemData)
 
@@ -80,7 +83,8 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         statusVisiblities24h(holder)
         statusVisiblities7d(holder)
 
-        initClicks(holder, itemData)
+        holder.b.bottomHidedLl.isVisible = itemVis
+        initClicks(holder, itemData, position)
 
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
@@ -165,13 +169,17 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         }
     }
 
-    private fun initClicks(holder: ItemHolder, itemData: CryptoModel) {
+    private var onItemClickListener: ((CryptoModel) -> Unit)? = null
+
+    fun setOnFavItemClickListener(listener: ((CryptoModel) -> Unit)? = null) {
+        onItemClickListener = listener
+    }
+
+    private fun initClicks(holder: ItemHolder, itemData: CryptoModel, pos: Int) {
         holder.itemView.setOnClickListener {
-            if (!holder.b.bottomHidedLl.isVisible) {
-                holder.b.bottomHidedLl.visibility = View.VISIBLE
-            } else {
-                holder.b.bottomHidedLl.visibility = View.GONE
-            }
+            val currentVis = itemVisibilityMap[pos] ?: false
+            itemVisibilityMap[pos] = !currentVis
+            notifyItemChanged(pos)
         }
 
         holder.b.beginToConvert.setOnClickListener {

@@ -3,4 +3,8 @@
     <string name="app_name">Currency&amp;Crypto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="currencies_dialog_title">On the official website of the Central Bank of the Republic of Uzbekistan, it is possible to obtain and use the official exchange rates of foreign currencies against the soum in structured XML and JSON format. This possibility is created for synchronous (automated) reception of exchange rates from the official website of the Central Bank of the Republic of Uzbekistan via the Internet, and for software or those who post exchange rates on their sites.
+    More info: https://cbu.uz/uz/arkhiv-kursov-valyut/veb-masteram/</string>
+    <string name="crypto_dialog_title">Coinlore provides a free cryptocurrency API that doesn\'t need api keys and is available publicly.As an independent data aggregator, we include more than 10501 coins and 400+ exchanges.We don\'t have rate limits but a recommendation is 1 request per second.For api calls api.coinlore.net domain should be used.If you have a question please contact us at contact@coinlore.comBelow you can see api endpoints, we are working hard to provide even more data so more new endpoints will be added.
+    More info: https://www.coinlore.com/ru/cryptocurrency-data-api</string>
 </resources>

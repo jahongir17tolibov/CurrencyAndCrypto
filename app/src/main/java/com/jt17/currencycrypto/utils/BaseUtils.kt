@@ -8,8 +8,6 @@ import android.content.SharedPreferences
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.orhanobut.hawk.Hawk
-import kotlin.math.round
 
 object BaseUtils {
 
@@ -40,11 +38,4 @@ object BaseUtils {
     infix fun idealDoubleResult(value: Double): String {
         return String.format("%.3f", value)
     }
-
-    var themePosition = true
-        get() = Hawk.get("isLight", true)
-        set(value) {
-            Hawk.put("isLight", value)
-            field = value
-        }
 }

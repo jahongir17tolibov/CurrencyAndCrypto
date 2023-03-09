@@ -108,8 +108,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
+                <ImageView
+                    android:id="@+id/delete_fav_currency"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_ripple"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/twotone_delete_24"
+                    app:tint="@color/md_theme_light_scrim" />
+
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/Diff_cardview"
+                    android:id="@+id/diff_cardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -166,7 +179,6 @@
                             android:textColor="@color/white"
                             android:textSize="10sp"
                             tools:text="21.331" />
-
 
                     </LinearLayout>
 
@@ -232,7 +244,7 @@
                 android:paddingHorizontal="20dp">
 
                 <ImageView
-                    android:id="@+id/star_added"
+                    android:id="@+id/star_added_curr"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/favourite_symbol_svgrepo_com"
@@ -240,7 +252,7 @@
                     app:tint="@color/md_theme_light_scrim" />
 
                 <ImageView
-                    android:id="@+id/star_not_add"
+                    android:id="@+id/star_not_add_curr"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/favourite_star_svgrepo_com"
@@ -261,6 +273,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 

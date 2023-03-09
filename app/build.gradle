@@ -77,14 +77,11 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    //shimmer effect
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
-
     //swipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-    //hawk pref
-    implementation "com.orhanobut:hawk:2.0.1"
+    //maskedEditText
+    implementation 'io.github.vicmikhailau:MaskedEditText:4.0.7'
 
     //kotlin coroutines dependency
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'

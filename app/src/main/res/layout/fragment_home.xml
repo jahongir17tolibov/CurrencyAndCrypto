@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="10dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,14 +19,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="14dp">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/circularRevealCardView"
+                app:layout_constraintBottom_toTopOf="@+id/fav_cryptoPath"
                 app:layout_constraintEnd_toStartOf="@+id/change_theme"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -60,6 +62,7 @@
                 style="@style/light_dark_theme_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="24dp"
                 app:rippleColor="@color/neutral_gray" />
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -70,7 +73,7 @@
                 android:layout_marginTop="40dp"
                 app:cardCornerRadius="30dp"
                 app:layout_constraintBottom_toTopOf="@id/vawe_lottie"
-                app:layout_constraintEnd_toStartOf="@+id/circularRevealCardView"
+                app:layout_constraintEnd_toStartOf="@+id/fav_cryptoPath"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/change_theme"
                 app:strokeColor="@color/md_theme_light_scrim"
@@ -109,7 +112,7 @@
             </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
-                android:id="@+id/circularRevealCardView"
+                android:id="@+id/fav_cryptoPath"
                 android:layout_width="0dp"
                 android:layout_height="360dp"
                 android:layout_marginHorizontal="20dp"

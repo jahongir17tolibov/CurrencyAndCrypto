@@ -2,9 +2,7 @@ package com.jt17.currencycrypto.repository
 
 import com.jt17.currencycrypto.data.local.AppDao
 import com.jt17.currencycrypto.data.remote.RemoteDataSource
-import com.jt17.currencycrypto.models.CryptoIncomingModel
-import com.jt17.currencycrypto.models.CurrencyModel
-import com.jt17.currencycrypto.models.Result
+import com.jt17.currencycrypto.models.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,7 +17,7 @@ class MainRepository @Inject constructor(
 ) {
 
     /* fetching currency data from data source and if has connection to network caching data to Room  */
-    suspend fun fetchCurrencies(): Flow<Result<List<CurrencyModel>>> =
+    suspend fun fetchCurrencies(): Flow<Result<List<CurrencyModel>>?> =
         flow {
             emit(fetchCurrDataCached())
             emit(Result.loading())
@@ -64,39 +62,35 @@ class MainRepository @Inject constructor(
             Result.success(CryptoIncomingModel(it))
         }
 
+    /***/
 
-//    val getAllCurrencies: LiveData<List<CurrencyModel>> = appDao.getAllCurrencyData()
+    suspend fun insertFavCurr(favCurrencyModel: FavCurrencyModel) =
+        appDao.insertToFavCurrencies(favCurrencyModel)
 
-    //get central banks currency
-//    suspend fun getUzCurrencies(): NetworkState<List<CurrencyModel>> {
-//        val response = apiService1.getCurrencyApi()
-//        return if (response.isSuccessful) {
-//            val responseBody = response.body()
-//            if (responseBody != null) {
-//                NetworkState.Success(responseBody)
-//            } else {
-//                NetworkState.Error(response)
-//            }
-//        } else {
-//            NetworkState.Error(response)
-//        }
-//    }
-//
-//
-//    //get crypto currencies
-//    suspend fun getCryptoCurrencies(): NetworkState<CryptoIncomingModel<List<CryptoModel>>> {
-//        val response = apiService2.getCryptoApi()
-//        return if (response.isSuccessful) {
-//            val responseBody = response.body()
-//            if (responseBody != null) {
-//                NetworkState.Success(responseBody)
-//            } else {
-//                NetworkState.Error(response)
-//            }
-//        } else {
-//            NetworkState.Error(response)
-//        }
-//    }
+    fun getAllDataFavCurr(): Flow<List<FavCurrencyModel>> = appDao.getAllFavCurrencies()
+
+    fun getFavCurrName(name: String?): Flow<FavCurrencyModel> = appDao.getFavCurrName(name)
+
+    fun getCurrName(name: String?): Flow<CurrencyModel> = appDao.getCurrName(name)
+
+    suspend fun clearAllFavouriteCurrencies() = appDao.deleteAllFavCurrencies()
+
+    suspend fun deleteOneFavCurrency(favCurrencyModel: FavCurrencyModel) =
+        appDao.deleteOneFavCurrency(favCurrencyModel)
+
+    /***/
+
+    suspend fun insertFavCry(favCryptoModel: FavCryptoModel) =
+        appDao.insertToFavCryptos(favCryptoModel)
+
+    fun getAllDataFavCry(): Flow<List<FavCryptoModel>> = appDao.getAllFavCryptos()
+
+    fun getFavCryName(name: String?): Flow<FavCryptoModel> = appDao.getCryptoName(name)
+
+    suspend fun clearAllFavouriteCrypto() = appDao.deleteAllFavCryptos()
+
+    suspend fun deleteOneFavCrypto(favCryptoModel: FavCryptoModel) =
+        appDao.deleteOneFavCrypto(favCryptoModel)
 
 }
 

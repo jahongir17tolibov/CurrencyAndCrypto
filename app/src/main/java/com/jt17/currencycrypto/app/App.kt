@@ -2,7 +2,6 @@ package com.jt17.currencycrypto.app
 
 import android.app.Application
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
-import com.orhanobut.hawk.Hawk
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

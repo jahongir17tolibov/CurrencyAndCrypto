@@ -25,7 +25,21 @@ class AppPreference {
         editor.putBoolean("isNight", state)
         editor.apply()
     }
+
     fun loadNightModeState(): Boolean = sharedPref.getBoolean("isNight", false)
 
+    fun setAddFavCurrButton(state: Boolean) {
+        editor.putBoolean("inFav2", state)
+        editor.apply()
+    }
+
+    fun getAddFavCurrButton(): Boolean = sharedPref.getBoolean("inFav2", false)
+
+    fun setDate(str: String) {
+        editor.putString("date", str)
+        editor.apply()
+    }
+
+    fun getDate(): String = sharedPref.getString("date", "empty") ?: "no internet))"
 
 }

@@ -3,31 +3,47 @@ package com.jt17.currencycrypto.ui.adapters
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.resources.MaterialResources.getDimensionPixelSize
 import com.jt17.currencycrypto.R
+import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.CurrencyLyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
+import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.ui.screens.CurrencyFragmentDirections
+import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(CurrencyDiffUtil()) {
+
     companion object {
         //icon source link: https://flagpedia.net/download/api
         const val IMAGE_URL = "https://flagcdn.com/w160/"
     }
 
+    private val itemVisibilityMap = HashMap<Int, Boolean>().apply {
+        for (i in 0 until itemCount) {
+            put(i, false)
+        }
+    }
     private var onItemClickListener: ((CurrencyModel) -> Unit)? = null
 
     fun setOnFavItemClickListener(listener: ((CurrencyModel) -> Unit)? = null) {
@@ -37,7 +53,6 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
     inner class ItemHolder(val b: CurrencyLyBinding) : RecyclerView.ViewHolder(b.root) {
 
         fun bind(result: CurrencyModel) {
-
             b.pricer.text = result.Rate
             b.currName.text = result.CcyNm_EN
             b.country3str.text = result.Ccy
@@ -46,16 +61,17 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
             val flags: String = result.Ccy.take(2).lowercase()
 
             Picasso.get().load("${IMAGE_URL + flags}.png")
-                .placeholder(R.drawable.ic_launcher_background).error(R.color.black)
+                .placeholder(R.color.md_theme_dark_background).error(R.color.black)
                 .into(b.flagAvatars)
 
+            AppPreference.getInstance().setDate(result.Date)
         }
 
     }
 
     internal class CurrencyDiffUtil : DiffUtil.ItemCallback<CurrencyModel>() {
         override fun areItemsTheSame(oldItem: CurrencyModel, newItem: CurrencyModel): Boolean {
-            return newItem.CcyNm_EN == oldItem.CcyNm_EN
+            return oldItem.CcyNm_EN == newItem.CcyNm_EN
         }
 
         override fun areContentsTheSame(oldItem: CurrencyModel, newItem: CurrencyModel): Boolean {
@@ -74,10 +90,12 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val itemData = getItem(position)
+        val itemVis = itemVisibilityMap[position] ?: false
 
         holder.bind(itemData)
-        diffVisiblities(holder)
-        initClicks(holder, itemData)
+        diffVisibilities(holder)
+        holder.b.bottomHidedLl.isVisible = itemVis
+        initClicks(holder, itemData, position)
 
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
@@ -86,24 +104,24 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun diffVisiblities(holder: ItemHolder) {
+    private fun diffVisibilities(holder: ItemHolder) {
         val diffValue = holder.b.diffStatus.text.toString()
         if (diffValue.toDouble() > 0) {
-            holder.b.DiffCardview.backgroundTintList =
+            holder.b.diffCardView.backgroundTintList =
                 ColorStateList.valueOf(Color.parseColor("#FF0ADE00"))
             holder.b.diffImgDOWN.isVisible = false
             holder.b.diffImgNONE.isVisible = false
             holder.b.diffImgUP.isVisible = true
             holder.b.diffTxtPLUS.isVisible = true
         } else if (diffValue.toDouble() < 0) {
-            holder.b.DiffCardview.backgroundTintList =
+            holder.b.diffCardView.backgroundTintList =
                 ColorStateList.valueOf(Color.parseColor("#FF0101"))
             holder.b.diffImgDOWN.isVisible = true
             holder.b.diffImgNONE.isVisible = false
             holder.b.diffImgUP.isVisible = false
             holder.b.diffTxtPLUS.isVisible = false
         } else {
-            holder.b.DiffCardview.backgroundTintList =
+            holder.b.diffCardView.backgroundTintList =
                 ColorStateList.valueOf(Color.parseColor("#888888"))
             holder.b.diffImgDOWN.isVisible = false
             holder.b.diffImgNONE.isVisible = true
@@ -112,13 +130,11 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
         }
     }
 
-    private fun initClicks(holder: ItemHolder, itemData: CurrencyModel) {
+    private fun initClicks(holder: ItemHolder, itemData: CurrencyModel, pos: Int) {
         holder.itemView.setOnClickListener {
-            if (!holder.b.bottomHidedLl.isVisible) {
-                holder.b.bottomHidedLl.visibility = View.VISIBLE
-            } else {
-                holder.b.bottomHidedLl.visibility = View.GONE
-            }
+            val currentVis = itemVisibilityMap[pos] ?: false
+            itemVisibilityMap[pos] = !currentVis
+            notifyItemChanged(pos)
         }
 
         holder.b.beginToConvert.setOnClickListener {
@@ -130,30 +146,33 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
             navController.navigate(action)
 
         }
-
         holder.b.addToFav.setOnClickListener {
 
             onItemClickListener?.invoke(itemData)
 
-            val rotAnim = AlphaAnimation(0.0F, 1.0F)
-            rotAnim.duration = 1000
-            rotAnim.interpolator = BounceInterpolator()
-
-            if (holder.b.starNotAdd.isVisible) {
-                holder.b.starNotAdd.isVisible = false
-                holder.b.starAdded.run {
+            if (holder.b.starNotAddCurr.isVisible) {
+                holder.b.starNotAddCurr.isVisible = false
+                holder.b.starAddedCurr.run {
                     isVisible = true
-                    startAnimation(rotAnim)
+                    startAnimation(starAnimation())
                 }
             } else {
-                holder.b.starAdded.isVisible = false
-                holder.b.starNotAdd.run {
+                holder.b.starAddedCurr.isVisible = false
+                holder.b.starNotAddCurr.run {
                     isVisible = true
-                    startAnimation(rotAnim)
+                    startAnimation(starAnimation())
                 }
             }
-        }
 
+        }
+    }
+
+    private fun starAnimation(): Animation {
+        val rotAnim = AlphaAnimation(0.0F, 1.0F)
+        return rotAnim.apply {
+            duration = 1000
+            interpolator = BounceInterpolator()
+        }
     }
 
 }

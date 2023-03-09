@@ -1,15 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
     tools:context=".ui.screens.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:fitsSystemWindows="true">
 
-</FrameLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Widget.Material3.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="snap|scroll"
+            app:title="Settings"
+            app:titleCentered="true"
+            app:titleTextColor="@color/md_theme_light_scrim">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/currencies_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/twotone_account_balance_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:text="Currencies rate source"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="60dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/cryptos_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/twotone_currency_bitcoin_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:text="Crypto currencies rate source"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="60dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/twotone_update_24" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp"
+                    tools:text="07.02.22" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="60dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/share_to_friend"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/twotone_share_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:text="Share the app with friends"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="60dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/contact_to_dev"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/telegram_alt_svgrepo_com" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:text="Contact the developer for offers"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/kufam"
+        android:text="App version: 1.0"
+        android:textColor="@color/md_theme_light_scrim"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

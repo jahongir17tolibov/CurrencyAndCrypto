@@ -1,6 +1,7 @@
 package com.jt17.currencycrypto.models
 
 import android.os.Parcelable
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -36,7 +37,8 @@ data class CryptoModel(
     @ColumnInfo(name = "market_cap_usd")
     val market_cap_usd: String,
 
-    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     var id: Int
+
 ) : Parcelable

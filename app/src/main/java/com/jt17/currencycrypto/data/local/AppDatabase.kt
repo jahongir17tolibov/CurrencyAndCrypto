@@ -8,9 +8,11 @@ import androidx.room.TypeConverters
 import com.jt17.currencycrypto.data.Converts
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
+import com.jt17.currencycrypto.models.FavCryptoModel
+import com.jt17.currencycrypto.models.FavCurrencyModel
 
 @Database(
-    entities = [CurrencyModel::class, CryptoModel::class],
+    entities = [CurrencyModel::class, CryptoModel::class, FavCurrencyModel::class, FavCryptoModel::class],
     version = 1,
     exportSchema = false
 )
@@ -18,26 +20,5 @@ import com.jt17.currencycrypto.models.CurrencyModel
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): AppDao
-
-//    companion object {
-//
-//        @Volatile
-//        private var INSTANCE: AppDatabase? = null
-//
-//        fun getDatabaseClient(context: Context): AppDatabase {
-//            if (INSTANCE != null) return INSTANCE!!
-//
-//            synchronized(this) {
-//                INSTANCE = Room
-//                    .databaseBuilder(context, AppDatabase::class.java, "CURRENCY_CRYPTO_DATABASE")
-//                    .fallbackToDestructiveMigration()
-//                    .build()
-//
-//                return INSTANCE!!
-//
-//            }
-//        }
-//
-//    }
 
 }

@@ -120,234 +120,258 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end|center"
-                android:orientation="vertical">
+                android:layout_gravity="center">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/Crypto_diff_cardview_1h"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#FF0ADE00"
-                    app:cardCornerRadius="15dp">
+                <ImageView
+                    android:id="@+id/delete_fav_crypto"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/custom_ripple"
+                    android:backgroundTint="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/twotone_delete_24"
+                    android:visibility="gone"
+                    app:tint="@color/md_theme_light_scrim" />
 
-                    <LinearLayout
+
+                <LinearLayout
+                    android:id="@+id/diff_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/Crypto_diff_cardview_1h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FF0ADE00"
+                        app:cardCornerRadius="15dp">
+
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="4dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam"
+                                android:text="per 1h"
+                                android:textColor="@color/white"
+                                android:textSize="8sp" />
+
+                            <ImageView
+                                android:id="@+id/diff_imgUP_1h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                                android:visibility="visible" />
+
+                            <ImageView
+                                android:id="@+id/diff_imgDOWN_1h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/diff_imgNONE_1h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_sync_alt_24"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/diff_txtPLUS_1h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" +"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/diff_status_1h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam_medium"
+                                android:maxEms="6"
+                                android:maxLines="1"
+                                android:minLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                tools:text="21.331" />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/Crypto_diff_cardview_24h"
                         android:layout_width="90dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="4dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:backgroundTint="#FF0ADE00"
+                        app:cardCornerRadius="15dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam"
-                            android:text="per 1h"
-                            android:textColor="@color/white"
-                            android:textSize="8sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="4dp">
 
-                        <ImageView
-                            android:id="@+id/diff_imgUP_1h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                            android:visibility="visible" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgDOWN_1h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgNONE_1h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_sync_alt_24"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/diff_txtPLUS_1h"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" +"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            android:textStyle="normal"
-                            android:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/diff_status_1h"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam_medium"
-                            android:maxEms="6"
-                            android:maxLines="1"
-                            android:minLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            tools:text="21.331" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam"
+                                android:text="per 24h"
+                                android:textColor="@color/white"
+                                android:textSize="8sp" />
 
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/diff_imgUP_24h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                                android:visibility="visible" />
 
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/diff_imgDOWN_24h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                                android:visibility="gone" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/Crypto_diff_cardview_24h"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:backgroundTint="#FF0ADE00"
-                    app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:id="@+id/diff_imgNONE_24h"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_sync_alt_24"
+                                android:visibility="gone" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="4dp">
+                            <TextView
+                                android:id="@+id/diff_txtPLUS_24h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" +"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam"
-                            android:text="per 24h"
-                            android:textColor="@color/white"
-                            android:textSize="8sp" />
-
-
-                        <ImageView
-                            android:id="@+id/diff_imgUP_24h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                            android:visibility="visible" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgDOWN_24h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgNONE_24h"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_sync_alt_24"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/diff_txtPLUS_24h"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" +"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            android:textStyle="normal"
-                            android:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/diff_status_24h"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam_medium"
-                            android:maxEms="6"
-                            android:maxLines="1"
-                            android:minLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            tools:text="21.331" />
+                            <TextView
+                                android:id="@+id/diff_status_24h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam_medium"
+                                android:maxEms="6"
+                                android:maxLines="1"
+                                android:minLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                tools:text="21.331" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/Crypto_diff_cardview_7d"
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:backgroundTint="#FF0ADE00"
-                    app:cardCornerRadius="15dp">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/Crypto_diff_cardview_7d"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:backgroundTint="#FF0ADE00"
+                        app:cardCornerRadius="15dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="4dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="4dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam"
-                            android:text="per 7d"
-                            android:textColor="@color/white"
-                            android:textSize="8sp" />
-
-
-                        <ImageView
-                            android:id="@+id/diff_imgUP_7d"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
-                            android:visibility="visible" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgDOWN_7d"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:id="@+id/diff_imgNONE_7d"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/ic_baseline_sync_alt_24"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:id="@+id/diff_txtPLUS_7d"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" +"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            android:textStyle="normal"
-                            android:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/diff_status_7d"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elegantTextHeight="true"
-                            android:fontFamily="@font/kufam_medium"
-                            android:maxEms="6"
-                            android:maxLines="1"
-                            android:minLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="8sp"
-                            tools:text="21.331" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam"
+                                android:text="per 7d"
+                                android:textColor="@color/white"
+                                android:textSize="8sp" />
 
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/diff_imgUP_7d"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                                android:visibility="visible" />
 
-                </androidx.cardview.widget.CardView>
+                            <ImageView
+                                android:id="@+id/diff_imgDOWN_7d"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_keyboard_double_arrow_down_24"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/diff_imgNONE_7d"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_baseline_sync_alt_24"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/diff_txtPLUS_7d"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" +"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/diff_status_7d"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:elegantTextHeight="true"
+                                android:fontFamily="@font/kufam_medium"
+                                android:maxEms="6"
+                                android:maxLines="1"
+                                android:minLines="1"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                tools:text="21.331" />
 
 
-            </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
@@ -367,9 +391,9 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/custom_ripple"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:focusable="true">
+                android:paddingHorizontal="20dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -402,25 +426,25 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/custom_ripple"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:focusable="true">
+                android:paddingHorizontal="20dp">
 
                 <ImageView
                     android:id="@+id/star_added"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/favourite_symbol_svgrepo_com"
-                    app:tint="@color/md_theme_light_scrim"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    app:tint="@color/md_theme_light_scrim" />
 
                 <ImageView
                     android:id="@+id/star_not_add"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/favourite_star_svgrepo_com"
-                    app:tint="@color/md_theme_light_scrim"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    app:tint="@color/md_theme_light_scrim" />
 
 
                 <TextView

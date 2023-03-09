@@ -4,21 +4,18 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentConverterBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.utils.BaseUtils
 import com.squareup.picasso.Picasso
-import java.text.NumberFormat
 import java.util.*
 
 class ConverterFragment : Fragment() {
@@ -54,7 +51,7 @@ class ConverterFragment : Fragment() {
         binding.convPricer.text = args.currModelk?.Rate
         binding.getstrSymbol.text = args.currModelk?.Ccy
         binding.bottomCcy.text = " " + args.currModelk?.Ccy
-        binding.convResultPricer.text = String.format("%.4f", resultToCurr)
+        binding.convResultPricer.text = String.format("%.5f", resultToCurr)
 
         val flags: String? = args.currModelk?.Ccy?.take(2)?.lowercase()
 
@@ -65,7 +62,6 @@ class ConverterFragment : Fragment() {
         Picasso.get().load("${args.flagsArg + "uz"}.png")
             .placeholder(R.drawable.ic_launcher_background).error(R.color.black)
             .into(binding.resultIcon)
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -76,7 +72,7 @@ class ConverterFragment : Fragment() {
 
         binding.convCurrName.text = binding.convCurrResultName.text.toString()
         binding.convResultPricer.text = binding.convPricer.text.toString()
-        binding.convPricer.text = BaseUtils.idealDoubleResult(resultToCurr)
+        binding.convPricer.text = String.format("%.5f", resultToCurr)
         binding.sumTxt.text = " " + args.currModelk?.Ccy
 
         val flags: String? = args.currModelk?.Ccy?.take(2)?.lowercase()
@@ -92,7 +88,6 @@ class ConverterFragment : Fragment() {
     }
 
     private fun convertingValues() {
-
         binding.editTxtForUzCurr.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, p1: Int, p2: Int, p3: Int) {}
 
@@ -113,8 +108,6 @@ class ConverterFragment : Fragment() {
                                 binding.convResult.text = result
                             }
                         }
-
-
                     }
                     text.isEmpty() -> binding.convResult.text = "0.0"
                 }

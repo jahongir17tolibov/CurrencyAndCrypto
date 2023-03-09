@@ -1,9 +1,9 @@
 package com.jt17.currencycrypto.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.jt17.currencycrypto.models.CryptoIncomingModel
+import com.jt17.currencycrypto.models.FavCryptoModel
+import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,55 +19,27 @@ class CryptoViewModel @Inject constructor(private val mainRepository: MainReposi
 
     fun getCryptos() {
         viewModelScope.launch {
-//            try {
-                mainRepository.fetchCryptos().collect {
-                    _cryptoList.value = it
-                }
-//            } catch (_: Exception) {
-//            }
+            mainRepository.fetchCryptos().collect {
+                _cryptoList.value = it
+            }
         }
     }
 
+    val getAllFavCryptos: LiveData<List<FavCryptoModel>> =
+        mainRepository.getAllDataFavCry().asLiveData()
 
-//    private val repository: RoomRepository = RoomRepository(Application())
+    fun insertFavCryptos(favCryptoModel: FavCryptoModel) = viewModelScope.launch {
+        mainRepository.insertFavCry(favCryptoModel)
+    }
 
-//    val cryptoList = MutableLiveData<List<CryptoModel>?>()
-//    val progress = MutableLiveData<Boolean>()
-//    private val error = MutableLiveData<String>()
-//    val errorMessage: LiveData<String>
-//        get() = error
-//
-//    private var job: Job? = null
-//
-//    fun getCryptoApi() {
-//        viewModelScope.launch {
-//            try {
-//                when (val response = mainRepository.getCryptoCurrencies()) {
-//                    is NetworkState.Success -> {
-//                        cryptoList.postValue(response.data.data)
-//                        progress.value = false
-//                    }
-//                    is NetworkState.Error -> {
-//                        onError("Error ${response.response.message()}")
-//                    }
-//                }
-//            } catch (_: Exception) {
-//            }
-//
-//        }
-//    }
-//
-//    private fun onError(message: String) {
-//        error.value = message
-//        progress.value = false
-//    }
-//
-//    override fun onCleared() {
-//        super.onCleared()
-//        job?.cancel()
-//    }
+    fun getFavCryptos(name: String?): LiveData<FavCryptoModel> =
+        mainRepository.getFavCryName(name).asLiveData()
 
-//    if (response.response.code() == 401) {
-//    } else {
-//    }
+    fun clearAllFavouriteCryptos() = viewModelScope.launch {
+        mainRepository.clearAllFavouriteCrypto()
+    }
+
+    fun deleteOneFavouriteCryptos(favCryptoModel: FavCryptoModel) = viewModelScope.launch {
+        mainRepository.deleteOneFavCrypto(favCryptoModel)
+    }
 }

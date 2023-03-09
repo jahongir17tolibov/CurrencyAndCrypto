@@ -30,7 +30,8 @@
     <color name="md_theme_light_shadow">#000000</color>
     <color name="md_theme_light_surfaceTint">#2D6B27</color>
     <color name="md_theme_light_outlineVariant">#C2C8BC</color>
-    <color name="md_theme_light_scrim">#000000</color>
+    <!--  -->
+    <color name="md_theme_light_scrim">#000000</color><!-- text color -->
     <color name="md_theme_dark_primary">#94D785</color>
     <color name="md_theme_dark_onPrimary">#003A03</color>
     <color name="md_theme_dark_primaryContainer">#125210</color>

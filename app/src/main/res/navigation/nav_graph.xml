@@ -9,32 +9,35 @@
         android:id="@+id/converterFragment"
         android:name="com.jt17.currencycrypto.ui.screens.ConverterFragment"
         android:label="fragment_converter"
-        tools:layout="@layout/fragment_converter" >
+        tools:layout="@layout/fragment_converter">
         <argument
             android:name="curr_modelk"
+            android:defaultValue="@null"
             app:argType="com.jt17.currencycrypto.models.CurrencyModel"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <argument
             android:name="flags_arg"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/cryptoFragment"
         android:name="com.jt17.currencycrypto.ui.screens.CryptoFragment"
         android:label="fragment_crypto"
-        tools:layout="@layout/fragment_crypto" >
+        tools:layout="@layout/fragment_crypto">
         <action
             android:id="@+id/action_cryptoFragment_to_convertCryptoFragment2"
             app:destination="@id/convertCryptoFragment2" />
+        <action
+            android:id="@+id/action_cryptoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.jt17.currencycrypto.ui.screens.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_converterFragment"
             app:destination="@id/converterFragment"
@@ -60,6 +63,12 @@
         <argument
             android:name="fav_curren_model"
             app:argType="com.jt17.currencycrypto.models.CurrencyModel" />
+        <action
+            android:id="@+id/action_homeFragment_to_favCurrenciesFragment"
+            app:destination="@id/favCurrenciesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favCryptoFragment"
+            app:destination="@id/favCryptoFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -70,10 +79,12 @@
         android:id="@+id/currencyFragment"
         android:name="com.jt17.currencycrypto.ui.screens.CurrencyFragment"
         android:label="fragment_currency"
-        tools:layout="@layout/fragment_currency" >
+        tools:layout="@layout/fragment_currency">
         <action
             android:id="@+id/action_currencyFragment_to_converterFragment"
-            app:destination="@id/converterFragment" />
+            app:destination="@id/converterFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_currencyFragment_to_cryptoFragment"
             app:destination="@id/cryptoFragment"
@@ -81,21 +92,46 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_currencyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/convertCryptoFragment2"
         android:name="com.jt17.currencycrypto.ui.screens.ConvertCryptoFragment"
         android:label="fragment_convert_crypto"
-        tools:layout="@layout/fragment_convert_crypto" >
+        tools:layout="@layout/fragment_convert_crypto">
         <argument
             android:name="crypto_values"
+            android:defaultValue="@null"
             app:argType="com.jt17.currencycrypto.models.CryptoModel"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <argument
             android:name="crypto_str"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/favCurrenciesFragment"
+        android:name="com.jt17.currencycrypto.ui.screens.FavCurrenciesFragment"
+        android:label="fragment_fav_currencies"
+        tools:layout="@layout/fragment_fav_currencies">
+        <argument
+            android:name="fav_curr_model"
+            android:defaultValue="@null"
+            app:argType="com.jt17.currencycrypto.models.CurrencyModel"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_favCurrenciesFragment_to_converterFragment"
+            app:destination="@id/converterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favCryptoFragment"
+        android:name="com.jt17.currencycrypto.ui.screens.FavCryptoFragment"
+        android:label="FavCryptoFragment" >
+        <action
+            android:id="@+id/action_favCryptoFragment_to_convertCryptoFragment2"
+            app:destination="@id/convertCryptoFragment2" />
     </fragment>
 </navigation>

@@ -3,16 +3,22 @@ package com.jt17.currencycrypto.ui.screens
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.FragmentHomeBinding
+import com.jt17.currencycrypto.ui.activities.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -20,7 +26,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val navigate by lazy { findNavController() }
+    private val navigation by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +39,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyc()
         initClicks()
-        setupLottie()
+        setupAnimations()
 
     }
 
@@ -61,13 +66,18 @@ class HomeFragment : Fragment() {
             changeTheme()
             requireActivity().recreate()
         }
+
+        binding.favCurrenciespath.setOnClickListener {
+            navigation.navigate(R.id.favCurrenciesFragment)
+        }
+
+        binding.favCryptoPath.setOnClickListener {
+            navigation.navigate(R.id.favCryptoFragment)
+        }
+
     }
 
-    private fun initRecyc() {
-//        binding.favouriteCurrRecyc.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun setupLottie() {
+    private fun setupAnimations() {
         binding.lottie1.apply {
             setAnimation(R.raw.abstract1_night)
             repeatCount = LottieDrawable.INFINITE
@@ -97,7 +107,14 @@ class HomeFragment : Fragment() {
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        val mainActivity = activity as MainActivity
+        val bottomNav = mainActivity.findViewById<BottomNavigationView>(R.id.navigation_view)
+        bottomNav.isVisible = true
     }
 
     override fun onDestroyView() {

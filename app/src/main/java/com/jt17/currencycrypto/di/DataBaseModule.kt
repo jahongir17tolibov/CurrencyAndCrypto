@@ -27,5 +27,4 @@ object DataBaseModule {
     fun provideAppDao(appDatabase: AppDatabase): AppDao = appDatabase.userDao()
 
 
-
 }

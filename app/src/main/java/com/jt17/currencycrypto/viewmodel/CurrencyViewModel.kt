@@ -1,10 +1,8 @@
 package com.jt17.currencycrypto.viewmodel
 
-
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.jt17.currencycrypto.models.CurrencyModel
+import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,50 +18,31 @@ class CurrencyViewModel @Inject constructor(private val mainRepository: MainRepo
 
     fun getCurrencies() {
         viewModelScope.launch {
-//            try {
-                mainRepository.fetchCurrencies().collect {
-                    _currencyList.value = it
-                }
-//            } catch (_: Exception) {
-//            }
+            mainRepository.fetchCurrencies().collect {
+                _currencyList.value = it
+            }
         }
     }
 
-//    //    var db: UserDao = AppDatabase.getDatabaseClient(Application()).userDao()
-//    val currencyList = MutableLiveData<List<CurrencyModel>?>()
-//    val progress = MutableLiveData<Boolean>()
-//    private val error = MutableLiveData<String>()
-//    val errorMessage: LiveData<String>
-//        get() = error
-//
-//    private var job: Job? = null
-//
-//    fun getCurrencyApi() {
-//        viewModelScope.launch {
-//            try {
-//                when (val response = mainRepository.getUzCurrencies()) {
-//                    is NetworkState.Success -> {
-//                        currencyList.postValue(response.data)
-//                        progress.value = false
-//                    }
-//                    is NetworkState.Error -> {
-//                        onError("Error ${response.response.message()}")
-//                    }
-//                }
-//            } catch (_: Exception) {
-//            }
-//        }
-//
-//    }
-//
-//    private fun onError(message: String) {
-//        error.value = message
-//        progress.value = false
-//    }
-//
-//    override fun onCleared() {
-//        super.onCleared()
-//        job?.cancel()
-//    }
+    val getAllFavCurrencies: LiveData<List<FavCurrencyModel>> =
+        mainRepository.getAllDataFavCurr().asLiveData()
+
+    fun insertFavCurrency(favCurrencyModel: FavCurrencyModel) = viewModelScope.launch {
+        mainRepository.insertFavCurr(favCurrencyModel)
+    }
+
+    fun getFavCurrencies(ccy: String?): LiveData<FavCurrencyModel> =
+        mainRepository.getFavCurrName(ccy).asLiveData()
+
+    fun getCurrName(name: String?): LiveData<CurrencyModel> =
+        mainRepository.getCurrName(name).asLiveData()
+
+    fun clearAllFavouriteCurrencies() = viewModelScope.launch {
+        mainRepository.clearAllFavouriteCurrencies()
+    }
+
+    fun deleteOneFavouriteCurrency(favCurrencyModel: FavCurrencyModel) = viewModelScope.launch {
+        mainRepository.deleteOneFavCurrency(favCurrencyModel)
+    }
 
 }

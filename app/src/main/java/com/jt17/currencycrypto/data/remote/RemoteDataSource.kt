@@ -22,8 +22,10 @@ class RemoteDataSource @Inject constructor(
 
     companion object {
         fun parseError(response: Response<*>, retrofit1: Retrofit, retrofit2: Retrofit): Error? {
-            val converter1 = retrofit1.responseBodyConverter<Error>(Error::class.java, arrayOfNulls(0))
-            val converter2 = retrofit2.responseBodyConverter<Error>(Error::class.java, arrayOfNulls(0))
+            val converter1 =
+                retrofit1.responseBodyConverter<Error>(Error::class.java, arrayOfNulls(0))
+            val converter2 =
+                retrofit2.responseBodyConverter<Error>(Error::class.java, arrayOfNulls(0))
             return try {
                 converter1.convert(response.errorBody()!!)
                 converter2.convert(response.errorBody()!!)
@@ -47,7 +49,7 @@ class RemoteDataSource @Inject constructor(
         val cryptoService = retrofit2.create(ApiService::class.java)
         return getResponse(
             request = { cryptoService.getCryptoApi() },
-            "Error fetching Crypto currency list"
+            defaultErrorMessage = "Error fetching Crypto currency list"
         )
     }
 

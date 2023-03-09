@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentCryptoBinding
 import com.jt17.currencycrypto.models.CryptoModel
+import com.jt17.currencycrypto.models.FavCryptoModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.CryptoAdapter
 import com.jt17.currencycrypto.viewmodel.CryptoViewModel
@@ -29,6 +30,7 @@ class CryptoFragment : Fragment() {
     private val viewModel by viewModels<CryptoViewModel>()
     private val cryptoAdapter by lazy { CryptoAdapter() }
     private var list: List<CryptoModel> = emptyList()
+    private var favCryptos: FavCryptoModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +44,11 @@ class CryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val retrofitService = NetManager.getCryptoApiServices()
-//        val mainRepository = MainRepository(retrofitService)
-
         initRecyc()
         initLiveData()
         initLoadData()
         searchCryptoCurrencies()
         initClicks()
-//        binding.swipeContainer.isRefreshing = true
 
     }
 
@@ -74,9 +72,7 @@ class CryptoFragment : Fragment() {
                     binding.swipeContainer.isRefreshing = false
                 }
 
-                Result.Status.LOADING -> {
-                    binding.swipeContainer.isRefreshing = true
-                }
+                Result.Status.LOADING -> binding.swipeContainer.isRefreshing = true
 
                 Result.Status.ERROR -> {
                     result?.message?.let {
@@ -128,6 +124,35 @@ class CryptoFragment : Fragment() {
 
     private fun initClicks() {
         cryptoAdapter.setOnFavItemClickListener {
+            /** this code checking when the add to favorites button is clicked, it checks whether this crypto
+             *  currency is named and whether there is a crypto currency with this name in the favorites entity. **/
+            viewModel.getFavCryptos(it.name).observe(viewLifecycleOwner) { fav ->
+                favCryptos = fav
+
+                if (it.name != favCryptos?.name.toString()) {
+                    viewModel.insertFavCryptos(
+                        FavCryptoModel(
+                            it.name,
+                            it.symbol,
+                            it.rank,
+                            it.price_usd,
+                            it.price_btc,
+                            it.id
+                        )
+                    )
+                    Toast.makeText(
+                        requireContext(),
+                        "Crypto successfully added to favorites!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (it.name == favCryptos?.name.toString()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "This Crypto is available in favorites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
 
         }
 

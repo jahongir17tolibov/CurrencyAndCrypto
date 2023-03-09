@@ -10,7 +10,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "currency_data_table")
 data class CurrencyModel(
-
     @ColumnInfo(name = "country_code")
     var Ccy: String,
 
@@ -32,7 +31,10 @@ data class CurrencyModel(
     @ColumnInfo(name = "differences")
     var Diff: String,
 
-    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "date")
+    var Date: String,
+
     @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     var Curid: Int
 ) : Parcelable

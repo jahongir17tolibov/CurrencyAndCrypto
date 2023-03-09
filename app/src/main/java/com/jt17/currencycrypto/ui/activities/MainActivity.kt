@@ -2,7 +2,9 @@ package com.jt17.currencycrypto.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         darkLightTheme()/* to determine dark light theme */
+//        starAddedVisibilityChecking()/* to determine starAdd and notAdd visibilities */
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,6 +43,16 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun starAddedVisibilityChecking() {
+        if (AppPreference.getInstance().getAddFavCurrButton()) {
+            findViewById<ImageView>(R.id.star_not_add_curr)!!.isVisible = false
+            findViewById<ImageView>(R.id.star_added_curr)!!.isVisible = true
+        } else {
+            findViewById<ImageView>(R.id.star_not_add_curr)!!.isVisible = true
+            findViewById<ImageView>(R.id.star_added_curr)!!.isVisible = false
         }
     }
 

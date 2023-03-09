@@ -1,6 +1,5 @@
 package com.jt17.currencycrypto.networking
 
-//import io.reactivex.Observable
 import com.jt17.currencycrypto.models.CryptoIncomingModel
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
