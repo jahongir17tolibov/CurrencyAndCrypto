@@ -200,13 +200,13 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
+        android:id="@+id/app_version_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="80dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/kufam"
-        android:text="App version: 1.0"
         android:textColor="@color/md_theme_light_scrim"
         android:textSize="22sp"
         android:textStyle="bold" />

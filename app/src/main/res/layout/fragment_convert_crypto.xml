@@ -6,12 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.ConvertCryptoFragment">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_btn"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:cardElevation="3dp"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_arrow_back_24"
+        app:iconSize="28dp"
+        app:iconTint="@color/search_bckg_light_dark"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="70dp"
         app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
         app:cardElevation="3dp"
         app:strokeColor="@color/md_theme_dark_onPrimary"
@@ -82,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="170dp"
         app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
         app:cardElevation="6dp"
         app:strokeColor="@color/md_theme_dark_onPrimary"
@@ -120,8 +135,8 @@
                     android:text="—>btc"
                     android:textAllCaps="true"
                     android:textColor="#5C5C5C"
-                    android:textStyle="italic"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
@@ -151,8 +166,8 @@
                         android:layout_weight="1"
                         android:bufferType="editable"
                         android:ellipsize="end"
-                        android:hint="0 BTC"
                         android:focusable="false"
+                        android:hint="0 BTC"
                         android:maxLines="1"
                         android:paddingHorizontal="8dp"
                         android:textAlignment="center"
@@ -245,7 +260,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="22dp"
-        android:layout_marginTop="234dp"
+        android:layout_marginTop="304dp"
         app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
         app:cardElevation="10dp"
         app:strokeColor="@color/md_theme_dark_onPrimary"
@@ -282,8 +297,8 @@
                     android:text="—>usd"
                     android:textAllCaps="true"
                     android:textColor="#5C5C5C"
-                    android:textStyle="italic"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
@@ -313,8 +328,8 @@
                         android:layout_weight="1"
                         android:bufferType="editable"
                         android:ellipsize="end"
-                        android:hint="$ 0"
                         android:focusable="false"
+                        android:hint="$ 0"
                         android:maxLines="1"
                         android:paddingHorizontal="8dp"
                         android:textAlignment="center"

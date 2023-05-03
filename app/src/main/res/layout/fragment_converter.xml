@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.ConverterFragment">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_btn"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/md_theme_light_inversePrimary"
+        app:cardElevation="3dp"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_arrow_back_24"
+        app:iconSize="28dp"
+        app:iconTint="@color/search_bckg_light_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/md_theme_dark_onPrimary"
+        app:strokeWidth="2dp" />
+
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
@@ -16,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@id/exchange_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_btn"
         app:strokeColor="@color/md_theme_dark_onPrimary"
         app:strokeWidth="2dp">
 
