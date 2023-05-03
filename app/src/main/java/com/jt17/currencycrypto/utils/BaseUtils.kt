@@ -8,21 +8,20 @@ import android.content.SharedPreferences
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import java.time.Duration
 
 object BaseUtils {
 
-    private lateinit var sharedPreferences: SharedPreferences
-    fun copyToClipBoard(
+    fun Fragment.copyToClipBoard(
         editText: EditText? = null,
-        textView: TextView? = null,
-        activity: Activity,
-        context: Context
+        textView: TextView? = null
     ) {
         val edittextToCopy = editText?.text
         val textToCopy = textView?.text
 
         val clipboard =
-            activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         if (textView != null) {
             val clipDataTextView = ClipData.newPlainText("text", textToCopy!!.toString())
             clipboard.setPrimaryClip(clipDataTextView)
@@ -31,11 +30,16 @@ object BaseUtils {
             clipboard.setPrimaryClip(clipDataEditText)
         }
 
-        Toast.makeText(context, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+        showToast("Text copied to clipboard")
 //        tvTextToPaste.text = clipboardManager.primaryClip?.getItemAt(0)?.text -> Paste from clipboard
     }
 
-    infix fun idealDoubleResult(value: Double): String {
+    infix fun Fragment.idealDoubleResult(value: Double): String {
         return String.format("%.3f", value)
     }
+
+    fun Fragment.showToast(msg: String?, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(requireContext(), msg, duration).show()
+    }
+
 }
