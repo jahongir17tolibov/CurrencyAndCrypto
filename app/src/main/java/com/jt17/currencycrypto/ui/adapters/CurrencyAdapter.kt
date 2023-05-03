@@ -3,41 +3,29 @@ package com.jt17.currencycrypto.ui.adapters
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.resources.MaterialResources.getDimensionPixelSize
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.CurrencyLyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
-import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.ui.screens.CurrencyFragmentDirections
-import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
+import com.jt17.currencycrypto.utils.Constants.IMAGE_URL
 import com.squareup.picasso.Picasso
-import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(CurrencyDiffUtil()) {
-
-    companion object {
-        //icon source link: https://flagpedia.net/download/api
-        const val IMAGE_URL = "https://flagcdn.com/w160/"
-    }
+    //icon source link: https://flagpedia.net/download/api
 
     private val itemVisibilityMap = HashMap<Int, Boolean>().apply {
         for (i in 0 until itemCount) {
@@ -100,7 +88,6 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
-
     }
 
     @SuppressLint("ResourceAsColor")
@@ -141,7 +128,8 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
             val navController = it.findNavController()
             val action = CurrencyFragmentDirections.actionCurrencyFragmentToConverterFragment(
                 itemData,
-                IMAGE_URL
+                IMAGE_URL,
+                true
             )
             navController.navigate(action)
 
@@ -152,13 +140,13 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
 
             if (holder.b.starNotAddCurr.isVisible) {
                 holder.b.starNotAddCurr.isVisible = false
-                holder.b.starAddedCurr.run {
+                holder.b.starAddedCurr.apply {
                     isVisible = true
                     startAnimation(starAnimation())
                 }
             } else {
                 holder.b.starAddedCurr.isVisible = false
-                holder.b.starNotAddCurr.run {
+                holder.b.starNotAddCurr.apply {
                     isVisible = true
                     startAnimation(starAnimation())
                 }

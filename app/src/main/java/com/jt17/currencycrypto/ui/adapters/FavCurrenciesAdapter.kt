@@ -32,7 +32,7 @@ class FavCurrenciesAdapter :
 
             val flags: String = result.CountryCode.take(2).lowercase()
 
-            Picasso.get().load("${CurrencyAdapter.IMAGE_URL + flags}.png")
+            Picasso.get().load("${IMAGE_URL + flags}.png")
                 .placeholder(R.drawable.ic_launcher_background).error(R.color.black)
                 .into(b.flagAvatars)
         }
@@ -76,8 +76,8 @@ class FavCurrenciesAdapter :
 
         holder.b.diffCardView.isVisible = false
         holder.b.deleteFavCurrency.isVisible = true
-        holder.itemView.animation =
-            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
+//        holder.itemView.animation =
+//            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
     }
 
@@ -103,7 +103,8 @@ class FavCurrenciesAdapter :
                         "",
                         itemData.id
                     ),
-                    IMAGE_URL
+                    IMAGE_URL,
+                    false
                 )
             navController.navigate(action)
         }

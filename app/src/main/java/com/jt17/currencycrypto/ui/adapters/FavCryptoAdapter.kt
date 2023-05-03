@@ -16,14 +16,11 @@ import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.FavCryptoModel
 import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.ui.screens.FavCryptoFragmentDirections
+import com.jt17.currencycrypto.utils.Constants.IMAGE_CRYPTO_URL
 import com.squareup.picasso.Picasso
 
 class FavCryptoAdapter :
     ListAdapter<FavCryptoModel, FavCryptoAdapter.ItemHolder>(CryptoDiffUtil()) {
-
-    companion object {
-        const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
-    }
 
     inner class ItemHolder(val b: CryptoLyBinding) : RecyclerView.ViewHolder(b.root) {
 
@@ -69,8 +66,8 @@ class FavCryptoAdapter :
 
         holder.b.diffLayout.isVisible = false
         holder.b.deleteFavCrypto.isVisible = true
-        holder.itemView.animation =
-            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
+//        holder.itemView.animation =
+//            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
     }
 
@@ -97,10 +94,10 @@ class FavCryptoAdapter :
                         "",
                         "",
                         itemData.price_btc,
-                        "",
-                        itemData.id
+                        ""
                     ),
-                    IMAGE_CRYPTO_URL
+                    IMAGE_CRYPTO_URL,
+                    false
                 )
             it.findNavController().navigate(action)
         }

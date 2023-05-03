@@ -1,5 +1,6 @@
 package com.jt17.currencycrypto.ui.screens
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,12 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentConvertCryptoBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.utils.BaseUtils
+import com.jt17.currencycrypto.utils.BaseUtils.copyToClipBoard
+import com.jt17.currencycrypto.utils.BaseUtils.idealDoubleResult
 import com.squareup.picasso.Picasso
 
 class ConvertCryptoFragment : Fragment() {
@@ -23,7 +27,7 @@ class ConvertCryptoFragment : Fragment() {
     private val args: ConvertCryptoFragmentArgs by navArgs()
     private val btcPrice by lazy { args.cryptoValues?.price_btc?.toDoubleOrNull() }
     private val usdPrice by lazy { args.cryptoValues?.price_usd?.toDoubleOrNull() }
-
+    private val navigation by lazy { findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,8 +51,8 @@ class ConvertCryptoFragment : Fragment() {
         binding.convCryptoToUsdName.text = args.cryptoValues?.symbol
         binding.topCryptoName.text = args.cryptoValues?.symbol
         binding.topCryptoNameUsd.text = args.cryptoValues?.symbol
-        binding.convCryptoBtcPricer.text = BaseUtils.idealDoubleResult(btcPrice!!)
-        binding.convUsdResultPricer.text = BaseUtils.idealDoubleResult(usdPrice!!)
+        binding.convCryptoBtcPricer.text = idealDoubleResult(btcPrice!!)
+        binding.convUsdResultPricer.text = idealDoubleResult(usdPrice!!)
 
         val cryIcons: String = args.cryptoValues?.symbol!!.lowercase()
         Picasso.get().load(args.cryptoStr + cryIcons).error(R.color.black)
@@ -64,6 +68,7 @@ class ConvertCryptoFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
+            @SuppressLint("SetTextI18n")
             override fun afterTextChanged(p0: Editable?) {
                 val text = binding.editTxtForCrypto.text.toString()
 
@@ -75,6 +80,7 @@ class ConvertCryptoFragment : Fragment() {
                         val resultUsd = convertToUSD(text)
                         binding.convUsdResult.text = resultUsd
                     }
+
                     text.isEmpty() -> {
                         binding.convBtcResult.text = "0.0 BTC"
                         binding.convUsdResult.text = "$ 0.0"
@@ -87,44 +93,39 @@ class ConvertCryptoFragment : Fragment() {
     private fun convertCryptos(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times(btcPrice!!)
-            BaseUtils.idealDoubleResult(resultValue!!)
+            idealDoubleResult(resultValue!!)
         }
     }
 
     private fun convertToUSD(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times(usdPrice!!)
-            BaseUtils.idealDoubleResult(resultValue!!)
+            idealDoubleResult(resultValue!!)
         }
     }
 
     private fun initClicks() {
         binding.copyTxt.setOnClickListener {
-            BaseUtils.copyToClipBoard(
-                binding.editTxtForCrypto,
-                null,
-                requireActivity(),
-                requireContext()
-            )
+            copyToClipBoard(binding.editTxtForCrypto, null)
         }
 
         binding.copyBtcResult.setOnClickListener {
-            BaseUtils.copyToClipBoard(
-                null,
-                binding.convBtcResult,
-                requireActivity(),
-                requireContext()
-            )
+            copyToClipBoard(null, binding.convBtcResult)
         }
 
         binding.copyUsdResult.setOnClickListener {
-            BaseUtils.copyToClipBoard(
-                null,
-                binding.convUsdResult,
-                requireActivity(),
-                requireContext()
-            )
+            copyToClipBoard(null, binding.convUsdResult)
         }
+
+        val action = ConvertCryptoFragmentDirections
+        binding.backBtn.setOnClickListener {
+            if (args.directionState) {
+                navigation.navigate(action.actionConvertCryptoFragment2ToCryptoFragment())
+            } else {
+                navigation.navigate(action.actionConvertCryptoFragment2ToFavCryptoFragment())
+            }
+        }
+
     }
 
     override fun onResume() {

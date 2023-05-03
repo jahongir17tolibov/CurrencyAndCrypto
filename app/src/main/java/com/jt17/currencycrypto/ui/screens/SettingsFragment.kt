@@ -4,17 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.FragmentSettingsBinding
-import com.jt17.currencycrypto.ui.adapters.CurrencyAdapter
+import com.jt17.currencycrypto.utils.Constants.APP_VERSION
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
@@ -30,11 +29,13 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
+    @SuppressLint("QueryPermissionsNeeded", "SuspiciousIndentation", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.date.text = AppPreference.getInstance().getDate()
+
+        binding.appVersionTxt.text = "App version $APP_VERSION"
 
         binding.shareToFriend.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
@@ -43,9 +44,19 @@ class SettingsFragment : Fragment() {
         }
 
         binding.contactToDev.setOnClickListener {
-            val telegramIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=JT1771TJ"))
+            try {
+                val telegramIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=JT1771TJ"))
+//                telegramIntent.setPackage("org.telegram.messenger")
                 startActivity(telegramIntent)
+            } catch (e: Exception) {
+                Toast.makeText(
+                    requireContext(),
+                    "Telegram is not installed on your device",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
 
         binding.currenciesDialog.setOnClickListener {

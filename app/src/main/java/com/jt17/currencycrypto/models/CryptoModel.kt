@@ -5,6 +5,7 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -37,8 +38,10 @@ data class CryptoModel(
     @ColumnInfo(name = "market_cap_usd")
     val market_cap_usd: String,
 
+    ) : Parcelable {
+
+    @IgnoredOnParcel
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    var id: Int
-
-) : Parcelable
+    var myID: Int? = null
+}

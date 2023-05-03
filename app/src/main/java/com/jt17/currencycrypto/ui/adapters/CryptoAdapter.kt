@@ -17,13 +17,10 @@ import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.CryptoLyBinding
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.ui.screens.CryptoFragmentDirections
+import com.jt17.currencycrypto.utils.Constants.IMAGE_CRYPTO_URL
 import com.squareup.picasso.Picasso
 
 class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoDiffUtil()) {
-
-    companion object {
-        const val IMAGE_CRYPTO_URL = "https://coinicons-api.vercel.app/api/icon/"
-    }
 
     private val itemVisibilityMap = HashMap<Int, Boolean>().apply {
         for (i in 0 until itemCount) {
@@ -54,7 +51,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
     internal class CryptoDiffUtil : DiffUtil.ItemCallback<CryptoModel>() {
         override fun areItemsTheSame(oldItem: CryptoModel, newItem: CryptoModel): Boolean {
-            return newItem.name == oldItem.name
+            return oldItem.rank == newItem.rank
         }
 
         override fun areContentsTheSame(oldItem: CryptoModel, newItem: CryptoModel): Boolean {
@@ -79,9 +76,9 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
         holder.bind(itemData)
 
-        statusVisiblities1h(holder)
-        statusVisiblities24h(holder)
-        statusVisiblities7d(holder)
+        statusVisibilities1h(holder)
+        statusVisibilities24h(holder)
+        statusVisibilities7d(holder)
 
         holder.b.bottomHidedLl.isVisible = itemVis
         initClicks(holder, itemData, position)
@@ -91,7 +88,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
     }
 
-    private fun statusVisiblities1h(holder: ItemHolder) {
+    private fun statusVisibilities1h(holder: ItemHolder) {
         val diffValue = holder.b.diffStatus1h.text.toString()
         if (diffValue.toDouble() > 0) {
             holder.b.CryptoDiffCardview1h.backgroundTintList =
@@ -117,7 +114,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         }
     }
 
-    private fun statusVisiblities24h(holder: ItemHolder) {
+    private fun statusVisibilities24h(holder: ItemHolder) {
         val diffValue = holder.b.diffStatus24h.text.toString()
         if (diffValue.toDouble() > 0) {
             holder.b.CryptoDiffCardview24h.backgroundTintList =
@@ -143,7 +140,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
         }
     }
 
-    private fun statusVisiblities7d(holder: ItemHolder) {
+    private fun statusVisibilities7d(holder: ItemHolder) {
         val diffValue = holder.b.diffStatus7d.text.toString()
         if (diffValue.toDouble() > 0) {
             holder.b.CryptoDiffCardview7d.backgroundTintList =
@@ -186,7 +183,8 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
             val navController = it.findNavController()
             val action = CryptoFragmentDirections.actionCryptoFragmentToConvertCryptoFragment2(
                 itemData,
-                IMAGE_CRYPTO_URL
+                IMAGE_CRYPTO_URL,
+                true
             )
             navController.navigate(action)
         }
@@ -199,13 +197,13 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
             if (holder.b.starNotAdd.isVisible) {
                 holder.b.starNotAdd.isVisible = false
-                holder.b.starAdded.run {
+                holder.b.starAdded.apply {
                     isVisible = true
                     startAnimation(rotAnim)
                 }
             } else {
                 holder.b.starAdded.isVisible = false
-                holder.b.starNotAdd.run {
+                holder.b.starNotAdd.apply {
                     isVisible = true
                     startAnimation(rotAnim)
                 }

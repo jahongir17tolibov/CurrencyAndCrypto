@@ -1,8 +1,6 @@
 package com.jt17.currencycrypto.data.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.jt17.currencycrypto.data.Converts
@@ -22,3 +20,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): AppDao
 
 }
+

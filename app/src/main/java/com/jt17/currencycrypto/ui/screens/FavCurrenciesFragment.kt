@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,7 +16,9 @@ import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentFavCurrenciesBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.FavCurrenciesAdapter
-import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
+import com.jt17.currencycrypto.utils.BaseUtils.showToast
+import com.jt17.currencycrypto.utils.helpers.BounceEdgeEffectFactory
+import com.jt17.currencycrypto.viewmodels.CurrencyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,20 +43,27 @@ class FavCurrenciesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initLiveData()
-        initRecyc()
+        setupRecycler()
         initClicks()
 
     }
 
-    private fun initLiveData() {
-        viewModel.getAllFavCurrencies.observe(viewLifecycleOwner) {
-            favCurrAdapter.submitList(it)
+    private fun initLiveData() = viewModel.getAllFavCurrencies.observe(viewLifecycleOwner) {
+        favCurrAdapter.submitList(it)
+        if (it.isEmpty()) {
+            binding.favIsEmptyTxt.isVisible = true
+            binding.recycFavCurrency.isVisible = false
+        } else {
+            binding.recycFavCurrency.isVisible = true
+            binding.favIsEmptyTxt.isVisible = false
         }
     }
 
-    private fun initRecyc() = binding.recycFavCurrency.run {
+
+    private fun setupRecycler() = binding.recycFavCurrency.run {
         layoutManager = LinearLayoutManager(requireContext())
         adapter = favCurrAdapter
+        edgeEffectFactory = BounceEdgeEffectFactory()
     }
 
     private fun initClicks() {
@@ -64,6 +74,11 @@ class FavCurrenciesFragment : Fragment() {
         favCurrAdapter.setOnDeleteItemClickListener {
             viewModel.deleteOneFavouriteCurrency(it)
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            val action = FavCurrenciesFragmentDirections.actionFavCurrenciesFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun initClearAllDialog() {
@@ -73,11 +88,7 @@ class FavCurrenciesFragment : Fragment() {
                 dialog.cancel()
             }
             .setPositiveButton("Clear all") { dialog, _ ->
-                Toast.makeText(
-                    requireContext(),
-                    "Your all favorite currencies deleted",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast("Your all favorite currencies deleted")
                 dialog.dismiss()
                 viewModel.clearAllFavouriteCurrencies()
             }

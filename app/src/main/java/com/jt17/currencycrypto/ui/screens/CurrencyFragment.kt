@@ -2,55 +2,50 @@ package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.BounceInterpolator
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
-import com.jt17.currencycrypto.data.sharedPref.AppPreference
+import com.jt17.currencycrypto.data.resource.Resource
 import com.jt17.currencycrypto.databinding.FragmentCurrencyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
 import com.jt17.currencycrypto.models.FavCurrencyModel
-import com.jt17.currencycrypto.models.Result
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.CurrencyAdapter
-import com.jt17.currencycrypto.viewmodel.CurrencyViewModel
+import com.jt17.currencycrypto.utils.BaseUtils.showToast
+import com.jt17.currencycrypto.utils.Constants.LOG_TXT
+import com.jt17.currencycrypto.utils.helpers.BounceEdgeEffectFactory
+import com.jt17.currencycrypto.utils.helpers.MarginItemDecoration
+import com.jt17.currencycrypto.viewmodels.CurrencyViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class CurrencyFragment : Fragment() {
+class CurrencyFragment : Fragment(R.layout.fragment_currency) {
     private var _binding: FragmentCurrencyBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentCurrencyBinding
 
     private val currentAdapter: CurrencyAdapter by lazy { CurrencyAdapter() }
     private val viewModel by viewModels<CurrencyViewModel>()
     private var list: List<CurrencyModel> = emptyList()
     private var favCurrName: FavCurrencyModel? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentCurrencyBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentCurrencyBinding.bind(view)
+        _binding = binding
 
-        initRecyc()/* init recyclerview, adapters */
+        setupRecycler()/* init recyclerview, adapters */
         initLiveData()/* init LiveData from viewModel */
         initLoadData()/* load data from viewModel */
         searchViewCurr()/* init searchView search currencies by name, rate and others */
@@ -58,43 +53,32 @@ class CurrencyFragment : Fragment() {
 
     }
 
-    private fun initLoadData() {
-        viewModel.getCurrencies()
-    }
+    private fun initLoadData() = viewModel.getCurrencies()
 
-    private fun initLiveData() {
-        viewModel.currencyList.observe(viewLifecycleOwner) { result ->
-            when (result.status) {
-                Result.Status.SUCCESS -> {
-                    result.data?.let { data ->
-                        list = data
-                        val mList = data.toMutableList()
-                        mList.clear()
-                        val sortedList = data.sortedBy { it.Rate.toDouble() }
-                        mList.addAll(sortedList)
-                        currentAdapter.submitList(mList.reversed())
-                    }
-                    binding.swipeContainer.isRefreshing = false
+    private fun initLiveData() = viewModel.currencyList.onEach { resource ->
+        when (resource.status) {
+            Resource.Status.SUCCESS -> {
+                resource.data?.let { data ->
+                    list = data
+                    currentAdapter.submitList(data)
                 }
-
-                Result.Status.LOADING -> binding.swipeContainer.isRefreshing = true
-
-                Result.Status.ERROR -> {
-                    result?.message?.let {
-                        Toast.makeText(
-                            requireContext(),
-                            "Check your internet connection!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    binding.swipeContainer.isRefreshing = false
-                }
+                swipeRef(false)
             }
 
+            Resource.Status.LOADING -> swipeRef(true)
+
+            Resource.Status.ERROR -> {
+                swipeRef(false)
+                resource.data?.let {
+                    list = it
+                    currentAdapter.submitList(it)
+                }
+                showToast(resource.message)
+            }
+
+            Resource.Status.EMPTY -> {}
         }
-
-
-    }
+    }.launchIn(lifecycleScope)
 
     private fun searchViewCurr() {
         val queryTextListener = object : SearchView.OnQueryTextListener {
@@ -121,55 +105,61 @@ class CurrencyFragment : Fragment() {
         binding.currSearch.setOnQueryTextListener(queryTextListener)
     }
 
-    private fun initRecyc() {
+    private fun setupRecycler() {
+        val marginDecoration =
+            MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.last_item_margin))
+
         binding.currencyRecyc.run {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = currentAdapter
+            addItemDecoration(marginDecoration)
+            edgeEffectFactory = BounceEdgeEffectFactory()
         }
+
     }
 
     private fun initClicks() {
         currentAdapter.setOnFavItemClickListener {
+            var isCurrencyAlreadyInFavorites = false
             /** this code checking when the add to favorites button is clicked, it checks whether this
              *  currency is named and whether there is a currency with this name in the favorites entity. **/
-            viewModel.getFavCurrencies(it.Ccy).observe(viewLifecycleOwner) { fav ->
-                favCurrName = fav
-
-                if (it.CcyNm_EN != favCurrName?.CurrencyName_ENG.toString()) {
-                    viewModel.insertFavCurrency(
-                        FavCurrencyModel(
-                            it.Ccy,
-                            it.CcyNm_EN,
-                            it.Rate,
-                            it.CcyNm_RU,
-                            it.CcyNm_UZ,
-                            it.CcyNm_UZC,
-                            it.Diff,
-                            it.Curid
-                        )
-                    )
-                    Toast.makeText(
-                        requireContext(),
-                        "Currency successfully added to favorites!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.d("hah", "45454")
-                } else {
-                    Log.d("haha", "initClicks111")
-                    Toast.makeText(
-                        requireContext(),
-                        "This currency is available in favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.d("haha", "initClicks222")
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.getFavCurrencies(it.Ccy).collect { fav ->
+                        if (fav == null && !isCurrencyAlreadyInFavorites) {
+                            viewModel.insertFavCurrency(
+                                FavCurrencyModel(
+                                    it.Ccy,
+                                    it.CcyNm_EN,
+                                    it.Rate,
+                                    it.CcyNm_RU,
+                                    it.CcyNm_UZ,
+                                    it.CcyNm_UZC,
+                                    it.Diff,
+                                    it.Curid
+                                )
+                            )
+                            showToast("Currency successfully added to favorites!")
+                            isCurrencyAlreadyInFavorites = true
+                        } else if (fav != null && !isCurrencyAlreadyInFavorites) {
+                            showToast("This currency is available in favorites")
+                            isCurrencyAlreadyInFavorites = true
+                        }
+                    }
                 }
             }
+        }
 
-
+        if (currentAdapter.currentList.isNotEmpty()) {
             binding.swipeContainer.setOnRefreshListener {
                 initLoadData()
             }
+            swipeRef(false)
         }
+    }
+
+    private fun swipeRef(state: Boolean) {
+        binding.swipeContainer.isRefreshing = state
     }
 
     override fun onResume() {

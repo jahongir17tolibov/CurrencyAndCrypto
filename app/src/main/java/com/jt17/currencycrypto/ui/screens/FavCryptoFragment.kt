@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,10 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentFavCryptoBinding
-import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.FavCryptoAdapter
-import com.jt17.currencycrypto.viewmodel.CryptoViewModel
+import com.jt17.currencycrypto.utils.BaseUtils.showToast
+import com.jt17.currencycrypto.utils.helpers.BounceEdgeEffectFactory
+import com.jt17.currencycrypto.viewmodels.CryptoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,20 +42,26 @@ class FavCryptoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initLiveData()
-        initRecyc()
+        setupRecycler()
         initClicks()
 
     }
 
-    private fun initLiveData() {
-        viewModel.getAllFavCryptos.observe(viewLifecycleOwner) {
-            favCryptoAdapter.submitList(it)
+    private fun initLiveData() = viewModel.getAllFavCryptos.observe(viewLifecycleOwner) {
+        favCryptoAdapter.submitList(it)
+        if (it.isEmpty()) binding.apply {
+            favIsEmptyTxt.isVisible = true
+            recycFavCrypto.isVisible = false
+        } else binding.apply {
+            favIsEmptyTxt.isVisible = false
+            recycFavCrypto.isVisible = true
         }
     }
 
-    private fun initRecyc() = binding.recycFavCrypto.run {
+    private fun setupRecycler() = binding.recycFavCrypto.run {
         layoutManager = LinearLayoutManager(requireContext())
         adapter = favCryptoAdapter
+        edgeEffectFactory = BounceEdgeEffectFactory()
     }
 
     private fun initClicks() {
@@ -67,6 +73,11 @@ class FavCryptoFragment : Fragment() {
             viewModel.deleteOneFavouriteCryptos(it)
         }
 
+        binding.toolbar.setNavigationOnClickListener {
+            val action = FavCryptoFragmentDirections.actionFavCryptoFragmentToHomeFragment()
+            navigation.navigate(action)
+        }
+
     }
 
     private fun initClearAllDialog() {
@@ -76,11 +87,7 @@ class FavCryptoFragment : Fragment() {
                 dialog.cancel()
             }
             .setPositiveButton("Clear all") { dialog, _ ->
-                Toast.makeText(
-                    requireContext(),
-                    "Your all favorite cryptos deleted",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast("Your all favorite cryptos deleted")
                 dialog.dismiss()
                 viewModel.clearAllFavouriteCryptos()
             }

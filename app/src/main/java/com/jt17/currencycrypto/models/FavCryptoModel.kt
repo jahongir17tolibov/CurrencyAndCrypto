@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -19,7 +20,11 @@ data class FavCryptoModel(
     var price_usd: String,
     @ColumnInfo("PriceInBTC")
     var price_btc: String,
+
+
+    ) : Parcelable {
+    @IgnoredOnParcel
     @ColumnInfo("id")
     @PrimaryKey(autoGenerate = true)
-    var id: Int
-) : Parcelable
+    var id: Int? = null
+}

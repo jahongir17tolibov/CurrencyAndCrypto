@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentConverterBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.utils.BaseUtils
+import com.jt17.currencycrypto.utils.BaseUtils.copyToClipBoard
+import com.jt17.currencycrypto.utils.BaseUtils.idealDoubleResult
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -24,7 +27,7 @@ class ConverterFragment : Fragment() {
 
     private val args: ConverterFragmentArgs by navArgs()
     private val uzsPrice by lazy { args.currModelk?.Rate?.toDoubleOrNull() }
-
+    private val navigation by lazy { findNavController() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +47,7 @@ class ConverterFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun safeCurrencyArgs() {
-        binding.uzsTxt.text = "UZS"
+        binding.uzsTxt.text = UZS
         val resultToCurr = 1 / uzsPrice!!
 
         binding.convCurrName.text = args.currModelk?.CcyNm_EN
@@ -67,7 +70,7 @@ class ConverterFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun swipeCurrencies() {
         binding.uzsTxt.text = args.currModelk?.Ccy
-        binding.getstrSymbol.text = "UZS"
+        binding.getstrSymbol.text = UZS
         val resultToCurr = 1 / uzsPrice!!
 
         binding.convCurrName.text = binding.convCurrResultName.text.toString()
@@ -98,18 +101,20 @@ class ConverterFragment : Fragment() {
                 when {
                     text.isNotEmpty() -> {
                         when {
-                            binding.uzsTxt.text.toString().contains("UZS") -> {
+                            binding.uzsTxt.text.toString().contains(UZS) -> {
                                 val result = convertCurrency(text)
                                 binding.convResult.text = result
                             }
-                            binding.getstrSymbol.text.toString().contains("UZS") -> {
+
+                            binding.getstrSymbol.text.toString().contains(UZS) -> {
                                 val swipedText = binding.editTxtForUzCurr.text.toString().toDouble()
                                 val result = convertToUzsCurrency(swipedText.toString())
                                 binding.convResult.text = result
                             }
                         }
                     }
-                    text.isEmpty() -> binding.convResult.text = "0.0"
+
+                    text.isEmpty() -> binding.convResult.text = ZERO
                 }
 
             }
@@ -122,41 +127,60 @@ class ConverterFragment : Fragment() {
     private fun convertCurrency(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times(uzsPrice!!)
-            BaseUtils.idealDoubleResult(resultValue!!)
+            idealDoubleResult(resultValue!!)
         }
     }
 
     private fun convertToUzsCurrency(input: String): String {
         return run {
             val resultValue = input.toDoubleOrNull()?.times((1 / uzsPrice!!))
-            BaseUtils.idealDoubleResult(resultValue!!)
+            idealDoubleResult(resultValue!!)
         }
     }
 
     private fun initClicks() {
         binding.copyTxt.setOnClickListener {
-            BaseUtils.copyToClipBoard(
-                binding.editTxtForUzCurr,
-                null,
-                requireActivity(),
-                requireContext()
-            )
+            copyToClipBoard(binding.editTxtForUzCurr, null)
         }
 
         binding.copyResult.setOnClickListener {
-            BaseUtils.copyToClipBoard(
-                null, binding.convResult,
-                requireActivity(),
-                requireContext()
-            )
+            copyToClipBoard(null, binding.convResult)
         }
 
         binding.exchangeLayout.setOnClickListener {
             when {
-                binding.uzsTxt.text.toString().contains("UZS") -> swipeCurrencies()
-                binding.getstrSymbol.text.toString().contains("UZS") -> safeCurrencyArgs()
+                binding.uzsTxt.text.toString().contains(UZS) -> {
+                    swipeCurrencies()
+                    fastEmptyTexts()
+                }
+
+                binding.getstrSymbol.text.toString().contains(UZS) -> {
+                    safeCurrencyArgs()
+                    fastEmptyTexts()
+                }
             }
         }
+
+        val action = ConverterFragmentDirections
+        binding.backBtn.setOnClickListener {
+            if (args.directionState) {
+                navigation.navigate(action.actionConverterFragmentToCurrencyFragment())
+            } else {
+                navigation.navigate(action.actionConverterFragmentToFavCurrenciesFragment())
+            }
+
+        }
+    }
+
+    private fun fastEmptyTexts() = binding.apply {
+        editTxtForUzCurr.setText(EMPTY_STR)
+        convResult.text = EMPTY_STR
+    }
+
+    companion object {
+        private const val UZS = "UZS"
+        private const val ZERO = "0.0"
+        private const val EMPTY_STR = ""
     }
 
     override fun onResume() {

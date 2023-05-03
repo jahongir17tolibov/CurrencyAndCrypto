@@ -1,6 +1,5 @@
 package com.jt17.currencycrypto.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.jt17.currencycrypto.models.CryptoModel
 import com.jt17.currencycrypto.models.CurrencyModel
@@ -18,10 +17,10 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCrypto(data: List<CryptoModel>)
 
-    @Query("SELECT * FROM currency_data_table order by rate DESC")
+    @Query("SELECT * FROM currency_data_table")
     fun getAllCurrencyData(): List<CurrencyModel>?/* get all data from currency model */
 
-    @Query("SELECT * FROM crypto_data_table order by cryptos_rank DESC")
+    @Query("SELECT * FROM crypto_data_table")
     fun getAllCryptoData(): List<CryptoModel>?/* get all crypto data */
 
     @Delete
@@ -30,8 +29,23 @@ interface AppDao {
     @Delete
     fun deleteCurrency(currData: List<CurrencyModel>)/* delete a currency from favourites */
 
-    @Delete
-    fun deleteCurrModel(currencyModel: CurrencyModel)
+    @Query("DELETE FROM currency_data_table")
+    fun clearAllCurrencies()
+
+    @Query("DELETE FROM crypto_data_table")
+    fun clearAllCryptos()
+
+    @Transaction
+    fun deleteAndInsertCurrencies(data: List<CurrencyModel>) {
+        clearAllCurrencies()
+        insertCurrencies(data)
+    }
+
+    @Transaction
+    fun deleteAndInsertCryptos(data: List<CryptoModel>) {
+        clearAllCryptos()
+        insertCrypto(data)
+    }
 
     @Query("SELECT * FROM currency_data_table WHERE country_code =:ccy")
     fun getCurrName(ccy: String?): Flow<CurrencyModel>

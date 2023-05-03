@@ -14,10 +14,13 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             style="@style/Widget.Material3.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="snap|scroll"
+            app:navigationIcon="@drawable/round_arrow_back_24"
+            app:navigationIconTint="@color/md_theme_light_scrim"
             app:title="My favourite currencies">
 
             <ImageView
@@ -38,6 +41,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/currency_ly" />
+        tools:listitem="@layout/currency_ly"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/fav_is_empty_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/kufam_medium"
+        android:text="Your favourite currencies list is Empty"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
