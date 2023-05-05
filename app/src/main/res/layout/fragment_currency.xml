@@ -30,8 +30,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/search_bckg_light_dark"
                     app:iconifiedByDefault="false"
-                    app:queryHint="search..."
-                    />
+                    app:queryHint="@string/search_view_txt" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -41,7 +40,6 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/material3"
                 tools:listitem="@layout/currency_ly" />
-
 
         </RelativeLayout>
 

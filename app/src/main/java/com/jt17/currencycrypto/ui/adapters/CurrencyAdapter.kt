@@ -42,7 +42,14 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
 
         fun bind(result: CurrencyModel) {
             b.pricer.text = result.Rate
-            b.currName.text = result.CcyNm_EN
+
+            when (AppPreference.getInstance().getAppsLang()) {
+                "uz" -> b.currName.text = result.CcyNm_UZ
+                "ru" -> b.currName.text = result.CcyNm_RU
+                "en" -> b.currName.text = result.CcyNm_EN
+                else -> b.currName.text = result.CcyNm_EN
+            }
+
             b.country3str.text = result.Ccy
             b.diffStatus.text = result.Diff
 

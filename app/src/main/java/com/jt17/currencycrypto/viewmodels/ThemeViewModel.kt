@@ -21,7 +21,6 @@ class ThemeViewModel @Inject constructor(application: Application) : AndroidView
     fun setThemeState(state: Boolean) = viewModelScope.launch {
         AppPreference.getInstance().setNightModeState(state)
         _themeState.value = state
-        Log.d(LOG_TXT, "param: $state | value: ${_themeState.value}")
     }
 
 }

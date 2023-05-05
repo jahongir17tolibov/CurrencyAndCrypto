@@ -29,6 +29,14 @@ class AppPreference {
 
     fun loadNightModeState(): Boolean = sharedPref.getBoolean("isNight", false)
 
+    fun setAppsLang(lang: String) = editor.apply {
+        putString("appsLang", lang)
+        apply()
+    }
+
+
+    fun getAppsLang(): String = sharedPref.getString("appsLang", "en") ?: "i don't know"
+
     fun setDate(str: String) {
         editor.putString("date", str)
         editor.apply()

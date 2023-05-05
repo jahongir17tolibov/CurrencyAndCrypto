@@ -65,7 +65,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:ellipsize="end"
-                        android:hint="Type your value here"
+                        android:hint="@string/edit_text_hint_cry_conv"
                         android:inputType="numberDecimal"
                         android:paddingHorizontal="10dp"
                         android:singleLine="true"

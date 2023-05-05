@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="edit_text_hint_cry_conv">Qiymatni kiriting</string>
+    <string name="currencies_dialog_title">O‘zbekiston Respublikasi Markaziy bankining rasmiy veb-saytida XML va JSON tuzilgan XML formatida xorijiy valyutalarning so‘mga nisbatan rasmiy kurslarini olish va ulardan foydalanish mumkin. Bu funksiya O‘zbekiston Respublikasi Markaziy bankining rasmiy veb-saytidan internet tarmog‘i orqali valyuta kurslarini sinxron (avtomatlashtirilgan) qabul qilish, shuningdek, dasturiy ta’minot yoki o‘z saytlarida valyuta kurslarini joylashtirganlar uchun yaratilgan.
+        Batafsil: https:cbu.uzuzarchiv-kursov-valyutweb-masteram</string>
+    <string name="crypto_dialog_title">Coinlore API kalitlarini talab qilmaydigan va hamma uchun ochiq bo\'lgan bepul kriptovalyuta API-ni taqdim etadi. Mustaqil ma\'lumotlar yig\'uvchisi sifatida biz 10 501 dan ortiq tangalar va 400 dan ortiq birjalarni ro\'yxatga olamiz. Bizda tezlik chegarasi yo\'q, lekin 1 ta so\'rov tavsiya etiladi. soniyada. API qo\'ng\'iroqlari api.coinlore.net domenidan foydalanishi kerak. Agar sizda biron bir savol bo\'lsa, biz bilan bog\'laning contact@coinlore.com Quyida API so\'nggi nuqtalarini ko\'rishingiz mumkin, biz ko\'proq yangi so\'nggi nuqtalar paydo bo\'lishi uchun ko\'proq ma\'lumotlarni taqdim etish uchun astoydil harakat qilmoqdamiz. qo\'shiladi.
+        Qo\'shimcha ma\'lumotlar: https:www.coinlore.comrucryptocurrency-data-api</string>
+    <string name="search_view_txt">qidiruv…</string>
+    <string name="my_favourite_cryptos">Menga yoqqan kriptolarim</string>
+    <string name="your_favourite_currencies_list_is_empty">Sevimli valyutalaringiz roʻyxati boʻsh</string>
+    <string name="favourite_currencies">Sevimli valyutalar</string>
+    <string name="favourite_crypto_currencies">Sevimli\nkriptovalyutalar</string>
+    <string name="currencies_rate_source">Valyuta kursi manbasi</string>
+    <string name="crypto_currencies_rate_source">Kriptovalyutalar kursi manbai</string>
+    <string name="share_the_app_with_friends">Ilovani doʻstlaringizga ulashing</string>
+    <string name="contact_the_developer_for_offers">Takliflar uchun ishlab chiquvchi bilan bog\'laning</string>
+    <string name="change_lang_txt">Ilova tilini o\'zgartirish</string>
+    <string name="select_lang_dialog_txt">Tilni tanlang</string>
+    <string name="english_txt">Inglizcha</string>
+    <string name="rus_txt">Ruscha</string>
+    <string name="uzbek_txt">O\'zbekcha</string>
+    <string name="share_txt">Ilovani doʻstlaringizga ulashing</string>
+    <string name="app_ver_txt">Ilova versiyasi</string>
+    <string name="telegram_error">Telegram qurilmangizga o\'rnatilmagan</string>
+    <string name="succ_add_to_fav_txt">Valyuta sevimlilarga muvaffaqiyatli qo\'shildi!</string>
+    <string name="avai_fav_curr_txt">Bu valyuta sevimlilarda mavjud</string>
+</resources>

@@ -1,18 +1,22 @@
 package com.jt17.currencycrypto.ui.activities
 
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.widget.ImageView
+import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.ActivityMainBinding
+import com.jt17.currencycrypto.utils.Constants.LOG_TXT
+import com.jt17.currencycrypto.utils.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 //      https://api.coinlore.net/api/tickers/
 //      https://cbu.uz/uz/arkhiv-kursov-valyut/json/
@@ -24,8 +28,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
+        appLanguage()
         darkLightTheme/* to determine dark light theme */
+        Log.d(LOG_TXT, "onCreate: $darkLightTheme")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,19 +51,20 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        recreate()
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun appLanguage() {
+        val appLang = AppPreference.getInstance().getAppsLang()
+        Log.d(LOG_TXT, "appLanguage: ${AppPreference.getInstance().getAppsLang()}")
+        val localeToSwitch = Locale(appLang)
+        ContextUtils.updateLocale(this, localeToSwitch)
     }
 
-//    private fun starAddedVisibilityChecking() {
-//        if (AppPreference.getInstance().getAddFavCurrButton()) {
-//            findViewById<ImageView>(R.id.star_not_add_curr)!!.isVisible = false
-//            findViewById<ImageView>(R.id.star_added_curr)!!.isVisible = true
-//        } else {
-//            findViewById<ImageView>(R.id.star_not_add_curr)!!.isVisible = true
-//            findViewById<ImageView>(R.id.star_added_curr)!!.isVisible = false
-//        }
+//    @RequiresApi(Build.VERSION_CODES.N)
+//    override fun attachBaseContext(newBase: Context?) {
+//        val appLang = AppPreference.getInstance().getAppsLang()
+//        val localeToSwitch = Locale(appLang)
+//        val localeUpdatedContext = newBase?.let { ContextUtils.updateLocale(it, localeToSwitch) }
+//        super.attachBaseContext(localeUpdatedContext)
 //    }
 
 }

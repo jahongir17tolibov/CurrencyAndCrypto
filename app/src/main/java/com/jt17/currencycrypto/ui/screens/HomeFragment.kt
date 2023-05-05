@@ -46,7 +46,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.themeState.collect { isNightModeEnabled ->
                 changeTheme(isNightModeEnabled)
-                Log.d(LOG_TXT, "in started $isNightModeEnabled")
             }
         }
     }
@@ -65,11 +64,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initClicks() {
         binding.changeTheme.setOnClickListener {
-            Log.d(LOG_TXT, "value in thread: ${!viewModel.themeState.value}")
             viewModel.setThemeState(!viewModel.themeState.value)
             changeThemeViewModel.runCatching {
                 requireActivity().recreate()
-                Log.d(LOG_TXT, "activity recreated!!!")
             }
         }
 

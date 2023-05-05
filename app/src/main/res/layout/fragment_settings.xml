@@ -28,7 +28,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -57,7 +57,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/kufam_medium"
                     android:maxLines="1"
-                    android:text="Currencies rate source"
+                    android:text="@string/currencies_rate_source"
                     android:textColor="@color/md_theme_light_scrim"
                     android:textSize="18sp" />
 
@@ -90,7 +90,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/kufam_medium"
                     android:maxLines="1"
-                    android:text="Crypto currencies rate source"
+                    android:text="@string/crypto_currencies_rate_source"
                     android:textColor="@color/md_theme_light_scrim"
                     android:textSize="18sp" />
 
@@ -156,7 +156,40 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/kufam_medium"
                     android:maxLines="1"
-                    android:text="Share the app with friends"
+                    android:text="@string/share_the_app_with_friends"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="60dp"
+                android:background="@color/md_theme_light_onSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/change_language_btn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_round_currency_exchange_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:elegantTextHeight="true"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/kufam_medium"
+                    android:maxLines="1"
+                    android:text="@string/share_the_app_with_friends"
                     android:textColor="@color/md_theme_light_scrim"
                     android:textSize="18sp" />
 
@@ -189,7 +222,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/kufam_medium"
                     android:maxLines="1"
-                    android:text="Contact the developer for offers"
+                    android:text="@string/contact_the_developer_for_offers"
                     android:textColor="@color/md_theme_light_scrim"
                     android:textSize="18sp" />
 
@@ -204,7 +237,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/kufam"
         android:textColor="@color/md_theme_light_scrim"

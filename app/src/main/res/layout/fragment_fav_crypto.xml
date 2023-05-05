@@ -21,7 +21,7 @@
             app:layout_scrollFlags="snap|scroll"
             app:navigationIcon="@drawable/round_arrow_back_24"
             app:navigationIconTint="@color/md_theme_light_scrim"
-            app:title="My favourite cryptos">
+            app:title="@string/my_favourite_cryptos">
 
             <ImageView
                 android:id="@+id/clear_all_btn"

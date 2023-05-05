@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crypto_dialog_title">Coinlore предоставляет бесплатный API-интерфейс криптовалюты, который не требует ключей API и доступен публично. Как независимый агрегатор данных, мы включаем более 10501 монет и более 400 бирж. У нас нет ограничений по скорости, но рекомендуется 1 запрос. в секунду. Для вызовов API следует использовать домен api.coinlore.net. Если у вас есть вопросы, свяжитесь с нами по адресу contact@coinlore.comНиже вы можете увидеть конечные точки API, мы прилагаем все усилия, чтобы предоставить еще больше данных, чтобы появилось больше новых конечных точек. быть добавлено.
+    Дополнительная информация: https:www.coinlore.comrucryptocurrency-data-api</string>
+    <string name="currencies_dialog_title">На официальном сайте Центрального банка Республики Узбекистан возможно получение и использование официальных курсов иностранных валют по отношению к суму в структурированном формате XML и JSON. Данная возможность создана для синхронного (автоматизированного) получения курсов валют с официального сайта Центрального банка Республики Узбекистан через сеть Интернет, а также для программного обеспечения или тех, кто размещает курсы валют на своих сайтах.
+        Подробнее: https:cbu.uzuzarchiv-kursov-valyutveb-masteram</string>
+    <string name="edit_text_hint_cry_conv">Введите значение здесь</string>
+    <string name="search_view_txt">поиск…</string>
+    <string name="my_favourite_cryptos">Мои любимые криптовалюты</string>
+    <string name="your_favourite_currencies_list_is_empty">Ваш список любимых валют пуст</string>
+    <string name="favourite_currencies">Любимые валюты</string>
+    <string name="favourite_crypto_currencies">Любимые криптовалюты</string>
+    <string name="currencies_rate_source">Источник курсов валют</string>
+    <string name="crypto_currencies_rate_source">Источник курса криптовалют</string>
+    <string name="share_the_app_with_friends">Поделитесь приложением с друзьями</string>
+    <string name="contact_the_developer_for_offers">Свяжитесь с разработчиком для предложений</string>
+    <string name="change_lang_txt">Изменить язык приложения</string>
+    <string name="select_lang_dialog_txt">Выберите язык</string>
+    <string name="english_txt">Английский</string>
+    <string name="rus_txt">Русский</string>
+    <string name="uzbek_txt">узбекский</string>
+    <string name="share_txt">Поделитесь приложением с друзьями</string>
+    <string name="app_ver_txt">Версия приложения</string>
+    <string name="telegram_error">Telegram не установлен на вашем устройстве</string>
+    <string name="succ_add_to_fav_txt">Валюта успешно добавлена в избранное!</string>
+    <string name="avai_fav_curr_txt">Эта валюта доступна в избранном</string>
+</resources>

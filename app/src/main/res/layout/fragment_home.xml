@@ -60,9 +60,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/change_theme"
                 style="@style/light_dark_theme_btn"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="24dp"
                 app:rippleColor="@color/neutral_gray" />
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -92,7 +92,7 @@
                         android:layout_marginTop="16dp"
                         android:elegantTextHeight="true"
                         android:fontFamily="@font/kufam_medium"
-                        android:text="Favourite Currencies"
+                        android:text="@string/favourite_currencies"
                         android:textColor="@color/md_theme_light_scrim"
                         android:textSize="17dp" />
 
@@ -101,8 +101,8 @@
                         android:layout_width="200dp"
                         android:layout_height="270dp"
                         android:layout_gravity="center|bottom"
-                        android:adjustViewBounds="true"
                         android:layout_marginStart="40dp"
+                        android:adjustViewBounds="true"
                         app:layout_constraintDimensionRatio="1:1"
                         app:lottie_loop="true"
                         app:lottie_speed="1" />
@@ -137,8 +137,10 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="16dp"
                         android:elegantTextHeight="true"
+                        android:ellipsize="end"
                         android:fontFamily="@font/kufam_medium"
-                        android:text="Favourite Crypto currencies"
+                        android:maxLines="2"
+                        android:text="@string/favourite_crypto_currencies"
                         android:textColor="@color/md_theme_light_scrim"
                         android:textSize="17dp" />
 
@@ -147,14 +149,13 @@
                         android:layout_width="200dp"
                         android:layout_height="270dp"
                         android:layout_gravity="center|bottom"
-                        android:adjustViewBounds="true"
                         android:layout_marginStart="40dp"
+                        android:adjustViewBounds="true"
                         app:layout_constraintDimensionRatio="1:1"
                         app:lottie_loop="true"
                         app:lottie_speed="1" />
 
                 </com.google.android.material.circularreveal.CircularRevealFrameLayout>
-
 
 
             </com.google.android.material.circularreveal.cardview.CircularRevealCardView>

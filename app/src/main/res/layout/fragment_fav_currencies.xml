@@ -51,7 +51,7 @@
         android:layout_gravity="center"
         android:elegantTextHeight="true"
         android:fontFamily="@font/kufam_medium"
-        android:text="Your favourite currencies list is Empty"
+        android:text="@string/your_favourite_currencies_list_is_empty"
         android:textSize="20sp"
         android:visibility="gone" />
 

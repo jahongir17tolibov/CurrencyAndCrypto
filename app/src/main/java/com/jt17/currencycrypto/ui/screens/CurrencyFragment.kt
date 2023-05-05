@@ -38,7 +38,6 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
     private val currentAdapter: CurrencyAdapter by lazy { CurrencyAdapter() }
     private val viewModel by viewModels<CurrencyViewModel>()
     private var list: List<CurrencyModel> = emptyList()
-    private var favCurrName: FavCurrencyModel? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -139,10 +138,10 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
                                     it.Curid
                                 )
                             )
-                            showToast("Currency successfully added to favorites!")
+                            showToast(resources.getString(R.string.succ_add_to_fav_txt))
                             isCurrencyAlreadyInFavorites = true
                         } else if (fav != null && !isCurrencyAlreadyInFavorites) {
-                            showToast("This currency is available in favorites")
+                            showToast(resources.getString(R.string.avai_fav_curr_txt))
                             isCurrencyAlreadyInFavorites = true
                         }
                     }

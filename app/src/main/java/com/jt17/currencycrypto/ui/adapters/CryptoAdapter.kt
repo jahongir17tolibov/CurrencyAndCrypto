@@ -35,7 +35,7 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
             b.cryptoName.text = " " + result.name
             b.cryptoSym.text = result.symbol
             b.cryptoRank.text = result.rank + ". "
-            b.cryptoPrice.text = result.price_usd + " $"
+            b.cryptoPrice.text = "$ " + result.price_usd
             b.diffStatus1h.text = result.percent_change_1h
             b.diffStatus24h.text = result.percent_change_24h
             b.diffStatus7d.text = result.percent_change_7d
