@@ -18,6 +18,7 @@ import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.utils.BaseUtils
 import com.jt17.currencycrypto.utils.BaseUtils.copyToClipBoard
 import com.jt17.currencycrypto.utils.BaseUtils.idealDoubleResult
+import com.jt17.currencycrypto.utils.BaseUtils.showAutomaticallyKeyboard
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -39,6 +40,7 @@ class ConverterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showAutomaticallyKeyboard(binding.editTxtForUzCurr)
         safeCurrencyArgs()
         initClicks()
         convertingValues()
@@ -114,7 +116,7 @@ class ConverterFragment : Fragment() {
                         }
                     }
 
-                    text.isEmpty() -> binding.convResult.text = ZERO
+                    text.isEmpty() -> binding.convResult.text = EMPTY_STR
                 }
 
             }
@@ -179,7 +181,6 @@ class ConverterFragment : Fragment() {
 
     companion object {
         private const val UZS = "UZS"
-        private const val ZERO = "0.0"
         private const val EMPTY_STR = ""
     }
 

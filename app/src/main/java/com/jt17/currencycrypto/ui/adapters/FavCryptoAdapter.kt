@@ -26,12 +26,14 @@ class FavCryptoAdapter :
 
         @SuppressLint("SetTextI18n")
         fun bind(result: FavCryptoModel) {
-            b.cryptoName.text = " " + result.name
-            b.cryptoSym.text = result.symbol
-            b.cryptoPrice.text = result.price_usd + " $"
+            b.cryptoSym.text = result.symbol + " | "
+            b.cryptoName.text = result.name
+            b.cryptoPrice.text = "$ " + result.price_usd
 
             val cryIcons: String = result.symbol.lowercase()
-            Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons).error(R.color.black)
+            Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons)
+                .placeholder(R.color.md_theme_dark_outline)
+                .error(R.color.black)
                 .into(b.cryptoIcons)
         }
     }
@@ -66,8 +68,6 @@ class FavCryptoAdapter :
 
         holder.b.diffLayout.isVisible = false
         holder.b.deleteFavCrypto.isVisible = true
-//        holder.itemView.animation =
-//            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale)
 
     }
 

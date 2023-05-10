@@ -4,21 +4,24 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentConvertCryptoBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
-import com.jt17.currencycrypto.utils.BaseUtils
 import com.jt17.currencycrypto.utils.BaseUtils.copyToClipBoard
 import com.jt17.currencycrypto.utils.BaseUtils.idealDoubleResult
+import com.jt17.currencycrypto.utils.BaseUtils.showAutomaticallyKeyboard
+import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.squareup.picasso.Picasso
+import java.text.DecimalFormat
 
 class ConvertCryptoFragment : Fragment() {
     private var _binding: FragmentConvertCryptoBinding? = null
@@ -40,6 +43,7 @@ class ConvertCryptoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showAutomaticallyKeyboard(binding.editTxtForCrypto)
         safeCryptoArgs()
         initClicks()
         convertResults()
@@ -69,7 +73,7 @@ class ConvertCryptoFragment : Fragment() {
             }
 
             @SuppressLint("SetTextI18n")
-            override fun afterTextChanged(p0: Editable?) {
+            override fun afterTextChanged(s: Editable?) {
                 val text = binding.editTxtForCrypto.text.toString()
 
                 when {

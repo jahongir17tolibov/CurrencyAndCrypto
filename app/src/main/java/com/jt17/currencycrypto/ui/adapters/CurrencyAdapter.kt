@@ -56,7 +56,8 @@ class CurrencyAdapter : ListAdapter<CurrencyModel, CurrencyAdapter.ItemHolder>(C
             val flags: String = result.Ccy.take(2).lowercase()
 
             Picasso.get().load("${IMAGE_URL + flags}.png")
-                .placeholder(R.color.md_theme_dark_background).error(R.color.black)
+                .placeholder(R.color.md_theme_dark_outline)
+                .error(R.color.black)
                 .into(b.flagAvatars)
 
             AppPreference.getInstance().setDate(result.Date)

@@ -62,7 +62,6 @@ class FavCryptoFragment : Fragment() {
 
             favourite.map { fav ->
                 val favName = fav.name
-                Log.d(LOG_TXT, "initLiveData: ${favName} ")
                 viewModel.getCryPrice(favName)?.observe(viewLifecycleOwner) {
                     if (it != null) {
                         if (fav.price_btc != it.price_btc || fav.price_usd != it.price_usd) {

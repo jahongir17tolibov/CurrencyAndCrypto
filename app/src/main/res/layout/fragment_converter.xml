@@ -73,11 +73,11 @@
                         android:inputType="numberDecimal"
                         android:paddingHorizontal="10dp"
                         android:singleLine="true"
-                        android:textStyle="bold"
                         android:textAppearance="?attr/textAppearanceHeadlineLarge"
                         android:textColor="@color/md_theme_light_scrim"
                         android:textColorHint="@color/md_theme_light_outline"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <ImageButton
                         android:id="@+id/copy_txt"
@@ -254,7 +254,8 @@
                         android:layout_weight="1"
                         android:bufferType="editable"
                         android:ellipsize="end"
-                        android:hint="$ 0"
+                        android:fontFamily="@font/kufam"
+                        android:hint="0.0"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingHorizontal="8dp"

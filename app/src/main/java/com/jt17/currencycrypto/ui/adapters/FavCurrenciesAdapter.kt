@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jt17.currencycrypto.R
+import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.CurrencyLyBinding
 import com.jt17.currencycrypto.models.CurrencyModel
 import com.jt17.currencycrypto.models.FavCurrencyModel
@@ -27,13 +28,19 @@ class FavCurrenciesAdapter :
 
         fun bind(result: FavCurrencyModel) {
             b.pricer.text = result.Rate
-            b.currName.text = result.CurrencyName_ENG
+            when (AppPreference.getInstance().getAppsLang()) {
+                "uz" -> b.currName.text = result.CurrencyName_UZ
+                "ru" -> b.currName.text = result.CurrencyName_RU
+                "en" -> b.currName.text = result.CurrencyName_ENG
+                else -> b.currName.text = result.CurrencyName_ENG
+            }
             b.country3str.text = result.CountryCode
 
             val flags: String = result.CountryCode.take(2).lowercase()
 
             Picasso.get().load("${IMAGE_URL + flags}.png")
-                .placeholder(R.drawable.ic_launcher_background).error(R.color.black)
+                .placeholder(R.color.md_theme_dark_outline)
+                .error(R.color.black)
                 .into(b.flagAvatars)
         }
 

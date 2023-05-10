@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -34,12 +35,16 @@ object BaseUtils {
 //        tvTextToPaste.text = clipboardManager.primaryClip?.getItemAt(0)?.text -> Paste from clipboard
     }
 
-    infix fun Fragment.idealDoubleResult(value: Double): String {
-        return String.format("%.3f", value)
-    }
+    infix fun Fragment.idealDoubleResult(value: Double): String = String.format("%.3f", value)
 
     fun Fragment.showToast(msg: String?, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), msg, duration).show()
+    }
+
+    fun Fragment.showAutomaticallyKeyboard(edit: EditText) {
+        edit.requestFocus()
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(edit, InputMethodManager.SHOW_IMPLICIT)
     }
 
 }

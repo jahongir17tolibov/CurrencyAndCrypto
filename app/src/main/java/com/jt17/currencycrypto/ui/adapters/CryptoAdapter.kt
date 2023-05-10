@@ -32,8 +32,8 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
 
         @SuppressLint("SetTextI18n")
         fun bind(result: CryptoModel) {
-            b.cryptoName.text = " " + result.name
-            b.cryptoSym.text = result.symbol
+            b.cryptoSym.text = result.symbol + " | "
+            b.cryptoName.text = result.name
             b.cryptoRank.text = result.rank + ". "
             b.cryptoPrice.text = "$ " + result.price_usd
             b.diffStatus1h.text = result.percent_change_1h
@@ -41,8 +41,9 @@ class CryptoAdapter : ListAdapter<CryptoModel, CryptoAdapter.ItemHolder>(CryptoD
             b.diffStatus7d.text = result.percent_change_7d
 
             val cryIcons: String = result.symbol.lowercase()
-            Log.d("hmmmm2", "bind: $cryIcons")
-            Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons).error(R.color.black)
+            Picasso.get().load(IMAGE_CRYPTO_URL + cryIcons)
+                .placeholder(R.color.md_theme_dark_outline)
+                .error(R.color.black)
                 .into(b.cryptoIcons)
 
         }
