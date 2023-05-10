@@ -1,27 +1,23 @@
 package com.jt17.currencycrypto.ui.screens
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.FragmentSettingsBinding
 import com.jt17.currencycrypto.utils.BaseUtils.showToast
 import com.jt17.currencycrypto.utils.Constants.APP_VERSION
-import com.jt17.currencycrypto.utils.Constants.CRY_TXT
-import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.jt17.currencycrypto.utils.ContextUtils
 import java.util.Locale
 
@@ -30,6 +26,7 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var dialog: MaterialAlertDialogBuilder
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -104,16 +101,6 @@ class SettingsFragment : Fragment() {
         val uzb = resources.getString(R.string.uzbek_txt)
         val languageList = arrayOf(eng, rus, uzb)
 
-        val adapter = object : ArrayAdapter<String>(
-            requireContext(),
-            android.R.layout.select_dialog_item,
-            languageList
-        ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
-                return view!!
-            }
-        }
 
         dialog = MaterialAlertDialogBuilder(requireContext(), R.style.MyCustomizedDialog)
             .setTitle(resources.getString(R.string.select_lang_dialog_txt))
@@ -125,7 +112,6 @@ class SettingsFragment : Fragment() {
                     else -> Locale.getDefault()
                 }
                 AppPreference.getInstance().setAppsLang(locale.language)
-                Log.d(LOG_TXT, "initChangeAppLangDialog: ${locale.language}")
                 context?.let { ContextUtils.updateLocale(it, locale) }.runCatching {
                     requireActivity().recreate()
                 }

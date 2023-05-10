@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentFavCurrenciesBinding
+import com.jt17.currencycrypto.models.FavCurrencyModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.FavCurrenciesAdapter
 import com.jt17.currencycrypto.utils.BaseUtils.showToast
@@ -48,19 +48,42 @@ class FavCurrenciesFragment : Fragment() {
 
     }
 
-    private fun initLiveData() = viewModel.getAllFavCurrencies.observe(viewLifecycleOwner) {
-        favCurrAdapter.submitList(it)
-        if (it.isEmpty()) {
-            binding.favIsEmptyTxt.isVisible = true
-            binding.recycFavCurrency.isVisible = false
-        } else {
-            binding.recycFavCurrency.isVisible = true
-            binding.favIsEmptyTxt.isVisible = false
+    private fun initLiveData() = viewModel.getAllFavCurrencies.observe(viewLifecycleOwner) { favourites ->
+            if (favourites.isEmpty()) binding.apply {
+                favIsEmptyTxt.isVisible = true
+                recycFavCurrency.isVisible = false
+            } else binding.apply {
+                recycFavCurrency.isVisible = true
+                favIsEmptyTxt.isVisible = false
+            }
+
+            favourites.map { fav ->
+                val favName = fav.CountryCode
+                viewModel.getCurrName(favName)?.observe(viewLifecycleOwner) { curr ->
+                    if (curr != null) {
+                        if (fav.Rate != curr.Rate) {
+                            val model = FavCurrencyModel(
+                                curr.Ccy,
+                                curr.CcyNm_EN,
+                                curr.Rate,
+                                curr.CcyNm_RU,
+                                curr.CcyNm_UZ,
+                                curr.CcyNm_UZC,
+                                curr.Diff
+                            )
+                            model.id = fav.id
+                            viewModel.updateFavouriteCurrency(model)
+                        }
+                    }
+                }
+            }
+
+            favCurrAdapter.submitList(favourites)
+
         }
-    }
 
 
-    private fun setupRecycler() = binding.recycFavCurrency.run {
+    private fun setupRecycler() = binding.recycFavCurrency.apply {
         layoutManager = LinearLayoutManager(requireContext())
         adapter = favCurrAdapter
         edgeEffectFactory = BounceEdgeEffectFactory()

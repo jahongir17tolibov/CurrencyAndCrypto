@@ -134,8 +134,7 @@ class CurrencyFragment : Fragment(R.layout.fragment_currency) {
                                     it.CcyNm_RU,
                                     it.CcyNm_UZ,
                                     it.CcyNm_UZC,
-                                    it.Diff,
-                                    it.Curid
+                                    it.Diff
                                 )
                             )
                             showToast(resources.getString(R.string.succ_add_to_fav_txt))

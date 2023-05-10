@@ -4,11 +4,12 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.jt17.currencycrypto.utils.Constants.FAV_CRY_TABLE_NAME
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity("favourite_crypto_table")
+@Entity(tableName = FAV_CRY_TABLE_NAME)
 data class FavCryptoModel(
     @ColumnInfo("Name")
     var name: String,
@@ -19,10 +20,9 @@ data class FavCryptoModel(
     @ColumnInfo("PriceInUSD")
     var price_usd: String,
     @ColumnInfo("PriceInBTC")
-    var price_btc: String,
+    var price_btc: String
 
-
-    ) : Parcelable {
+) : Parcelable {
     @IgnoredOnParcel
     @ColumnInfo("id")
     @PrimaryKey(autoGenerate = true)

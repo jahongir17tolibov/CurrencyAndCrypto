@@ -4,10 +4,12 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.jt17.currencycrypto.utils.Constants.CURRENCY_TABLE_NAME
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "currency_data_table")
+@Entity(tableName = CURRENCY_TABLE_NAME)
 data class CurrencyModel(
     @ColumnInfo(name = "country_code")
     var Ccy: String,
@@ -24,16 +26,19 @@ data class CurrencyModel(
     @ColumnInfo(name = "cc_en")
     var CcyNm_EN: String,
 
-    @ColumnInfo(name = "rate")
+    @ColumnInfo(name = "price")
     var Rate: String,
 
     @ColumnInfo(name = "differences")
     var Diff: String,
 
     @ColumnInfo(name = "date")
-    var Date: String,
+    var Date: String
 
+) : Parcelable {
+
+    @IgnoredOnParcel
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    var Curid: Int
-) : Parcelable
+    var curid: Int? = null
+}

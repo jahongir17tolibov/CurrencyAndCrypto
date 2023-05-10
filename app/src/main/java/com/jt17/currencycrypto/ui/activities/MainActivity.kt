@@ -1,9 +1,7 @@
 package com.jt17.currencycrypto.ui.activities
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,7 +11,6 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.data.sharedPref.AppPreference
 import com.jt17.currencycrypto.databinding.ActivityMainBinding
-import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.jt17.currencycrypto.utils.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -32,11 +29,11 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         appLanguage()
-        darkLightTheme/* to determine dark light theme */
-        Log.d(LOG_TXT, "onCreate: $darkLightTheme")
+//        darkLightTheme/* to determine dark light theme */
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainFrame) as NavHostFragment
         navController = navHostFragment.navController
@@ -54,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun appLanguage() {
         val appLang = AppPreference.getInstance().getAppsLang()
-        Log.d(LOG_TXT, "appLanguage: ${AppPreference.getInstance().getAppsLang()}")
         val localeToSwitch = Locale(appLang)
         ContextUtils.updateLocale(this, localeToSwitch)
     }

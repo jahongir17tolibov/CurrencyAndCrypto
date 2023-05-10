@@ -1,7 +1,6 @@
 package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -20,7 +19,6 @@ import com.jt17.currencycrypto.models.FavCryptoModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.CryptoAdapter
 import com.jt17.currencycrypto.utils.BaseUtils.showToast
-import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.jt17.currencycrypto.utils.helpers.BounceEdgeEffectFactory
 import com.jt17.currencycrypto.utils.helpers.MarginItemDecoration
 import com.jt17.currencycrypto.viewmodels.CryptoViewModel
@@ -28,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class CryptoFragment : Fragment(R.layout.fragment_crypto) {

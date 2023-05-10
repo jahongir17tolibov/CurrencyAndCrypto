@@ -5,10 +5,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.jt17.currencycrypto.utils.Constants.FAV_CURR_TABLE_NAME
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity("favourite_currencies_table")
+@Entity(tableName = FAV_CURR_TABLE_NAME)
 data class FavCurrencyModel(
     @ColumnInfo("Ccy")
     var CountryCode: String,
@@ -23,7 +25,10 @@ data class FavCurrencyModel(
     @ColumnInfo("CcyNm_UZC")
     var CurrencyName_UZK: String,
     @ColumnInfo("Diff")
-    var Diff: String,
+    var Diff: String
+
+) : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
-    var id: Int
-) : Parcelable
+    var id: Int? = null
+}

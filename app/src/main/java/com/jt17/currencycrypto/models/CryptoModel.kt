@@ -5,11 +5,12 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.jt17.currencycrypto.utils.Constants.CRYPTO_TABLE_NAME
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "crypto_data_table")
+@Entity(tableName = CRYPTO_TABLE_NAME)
 data class CryptoModel(
     @ColumnInfo(name = "symbol")
     val symbol: String,
@@ -36,9 +37,9 @@ data class CryptoModel(
     val price_btc: String,
 
     @ColumnInfo(name = "market_cap_usd")
-    val market_cap_usd: String,
+    val market_cap_usd: String
 
-    ) : Parcelable {
+) : Parcelable {
 
     @IgnoredOnParcel
     @ColumnInfo(name = "id")

@@ -1,6 +1,7 @@
 package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jt17.currencycrypto.R
 import com.jt17.currencycrypto.databinding.FragmentFavCryptoBinding
+import com.jt17.currencycrypto.models.FavCryptoModel
 import com.jt17.currencycrypto.ui.activities.MainActivity
 import com.jt17.currencycrypto.ui.adapters.FavCryptoAdapter
 import com.jt17.currencycrypto.utils.BaseUtils.showToast
+import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.jt17.currencycrypto.utils.helpers.BounceEdgeEffectFactory
 import com.jt17.currencycrypto.viewmodels.CryptoViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,16 +50,39 @@ class FavCryptoFragment : Fragment() {
 
     }
 
-    private fun initLiveData() = viewModel.getAllFavCryptos.observe(viewLifecycleOwner) {
-        favCryptoAdapter.submitList(it)
-        if (it.isEmpty()) binding.apply {
-            favIsEmptyTxt.isVisible = true
-            recycFavCrypto.isVisible = false
-        } else binding.apply {
-            favIsEmptyTxt.isVisible = false
-            recycFavCrypto.isVisible = true
+    private fun initLiveData() =
+        viewModel.getAllFavCryptos.observe(viewLifecycleOwner) { favourite ->
+            if (favourite.isEmpty()) binding.apply {
+                favIsEmptyTxt.isVisible = true
+                recycFavCrypto.isVisible = false
+            } else binding.apply {
+                favIsEmptyTxt.isVisible = false
+                recycFavCrypto.isVisible = true
+            }
+
+            favourite.map { fav ->
+                val favName = fav.name
+                Log.d(LOG_TXT, "initLiveData: ${favName} ")
+                viewModel.getCryPrice(favName)?.observe(viewLifecycleOwner) {
+                    if (it != null) {
+                        if (fav.price_btc != it.price_btc || fav.price_usd != it.price_usd) {
+                            val model = FavCryptoModel(
+                                it.name,
+                                it.symbol,
+                                it.rank,
+                                it.price_usd,
+                                it.price_btc
+                            )
+                            model.id = fav.id
+                            viewModel.updateFavouriteCryptos(model)
+                        }
+                    }
+                }
+            }
+
+            favCryptoAdapter.submitList(favourite)
+
         }
-    }
 
     private fun setupRecycler() = binding.recycFavCrypto.run {
         layoutManager = LinearLayoutManager(requireContext())

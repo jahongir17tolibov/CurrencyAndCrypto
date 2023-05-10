@@ -73,6 +73,7 @@
                         android:inputType="numberDecimal"
                         android:paddingHorizontal="10dp"
                         android:singleLine="true"
+                        android:textStyle="bold"
                         android:textAppearance="?attr/textAppearanceHeadlineLarge"
                         android:textColor="@color/md_theme_light_scrim"
                         android:textColorHint="@color/md_theme_light_outline"

@@ -8,6 +8,7 @@ import com.jt17.currencycrypto.models.*
 import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -60,34 +61,9 @@ class MainRepository @Inject constructor(
         emit(Resource.Error(it.message))
     }.flowOn(IO)
 
+    fun getCurrencyName(name: String?): Flow<CurrencyModel>? = appDao.getCurrName(name)
 
-    /***/
-
-    suspend fun insertFavCurr(favCurrencyModel: FavCurrencyModel) =
-        appDao.insertToFavCurrencies(favCurrencyModel)
-
-    fun getAllDataFavCurr(): Flow<List<FavCurrencyModel>> = appDao.getAllFavCurrencies()
-
-    fun getFavCurrName(name: String?): Flow<FavCurrencyModel> = appDao.getFavCurrName(name)
-
-    suspend fun clearAllFavouriteCurrencies() = appDao.deleteAllFavCurrencies()
-
-    suspend fun deleteOneFavCurrency(favCurrencyModel: FavCurrencyModel) =
-        appDao.deleteOneFavCurrency(favCurrencyModel)
-
-    /***/
-
-    suspend fun insertFavCry(favCryptoModel: FavCryptoModel) =
-        appDao.insertToFavCryptos(favCryptoModel)
-
-    fun getAllDataFavCry(): Flow<List<FavCryptoModel>> = appDao.getAllFavCryptos()
-
-    fun getFavCryName(name: String?): Flow<FavCryptoModel> = appDao.getCryptoName(name)
-
-    suspend fun clearAllFavouriteCrypto() = appDao.deleteAllFavCryptos()
-
-    suspend fun deleteOneFavCrypto(favCryptoModel: FavCryptoModel) =
-        appDao.deleteOneFavCrypto(favCryptoModel)
+    fun getCryptosName(name: String?): Flow<CryptoModel>? = appDao.getCryName(name)
 
 }
 

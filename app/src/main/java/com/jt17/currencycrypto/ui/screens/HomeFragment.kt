@@ -1,7 +1,6 @@
 package com.jt17.currencycrypto.ui.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -15,9 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jt17.currencycrypto.R
+import com.jt17.currencycrypto.app.App
 import com.jt17.currencycrypto.databinding.FragmentHomeBinding
 import com.jt17.currencycrypto.ui.activities.MainActivity
-import com.jt17.currencycrypto.utils.Constants.LOG_TXT
 import com.jt17.currencycrypto.viewmodels.ThemeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,8 +27,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
 
     private val navigation by lazy { findNavController() }
-    private val viewModel by viewModels<ThemeViewModel>() {
-        ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+    private val viewModel by viewModels<ThemeViewModel> {
+        ViewModelProvider.AndroidViewModelFactory(App.instance)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +38,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         initClicks()
         setupAnimations()
+
+        changeThemeViewModel
 
     }
 
@@ -64,10 +65,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initClicks() {
         binding.changeTheme.setOnClickListener {
-            viewModel.setThemeState(!viewModel.themeState.value)
-            changeThemeViewModel.runCatching {
-                requireActivity().recreate()
-            }
+            viewModel.setThemeState(viewModel.themeState.value.not())
         }
 
         binding.favCurrenciespath.setOnClickListener {

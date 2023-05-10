@@ -100,8 +100,7 @@ class FavCurrenciesAdapter :
                         itemData.CurrencyName_ENG,
                         itemData.Rate,
                         itemData.Diff,
-                        "",
-                        itemData.id
+                        ""
                     ),
                     IMAGE_URL,
                     false
